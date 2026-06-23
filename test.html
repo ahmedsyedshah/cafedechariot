@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Backdraw SVG Engine - Fixed</title>
+
+<style>
+html,body{margin:0;height:100%;overflow:hidden;font-family:monospace;}
+.app{display:grid;grid-template-columns:280px 1fr;height:100vh;}
+
+.sidebar{background:#f4f1ea;padding:16px;overflow:auto;border-right:1px solid #ddd;}
+button,input{width:100%;margin-top:8px;padding:8px;box-sizing:border-box;}
+.row{display:flex;gap:6px;}
+.row button{flex:1}
+
+#drawToggle{
+  background:#4CAF50;
+  color:white;
+  font-weight:bold;
+  border:none;
+  cursor:pointer;
+  transition:background 0.3s;
+}
+#drawToggle.active{background:#f44336;}
+#drawToggle:hover{opacity:0.9;}
+
+.stage{position:relative;background:#111;overflow:hidden;}
+iframe{
+  width:100%;
+  height:100%;
+  border:none;
+  background:white;
+  display:block;
+}
+
+#svgLayer{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:9999;
+  pointer-events:none;
+  cursor:default;
+}
+#svgLayer.active{
+  pointer-events:auto;
+  cursor:crosshair;
+}
+
+.drawing-indicator{
+  position:absolute;
+  top:20px;
+  left:50%;
+  transform:translateX(-50%);
+  background:rgba(244,67,54,0.9);
+  color:white;
+  padding:8px 20px;
+  border-radius:20px;
+  font-size:14px;
+  font-weight:bold;
+  z-index:10000;
+  pointer-events:none;
+  opacity:0;
+  transition:opacity 0.3s;
+  font-family:monospace;
+  letter-spacing:1px;
+}
+.drawing-indicator.visible{opacity:1;}
+
+.status-bar{
+  position:absolute;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%);
+  background:rgba(0,0,0,0.7);
+  color:white;
+  padding:6px 16px;
+  border-radius:12px;
+  font-size:12px;
+  z-index:10000;
+  pointer-events:none;
+  font-family:monospace;
+  opacity:0.7;
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+
+<div class="sidebar">
+<h3>Backdraw SVG</h3>
+<input type="file" id="file">
+<button id="drawToggle">🎨 Start Drawing</button>
+<div class="row">
+<button id="pen">Pen</button>
+<button id="eraser">Eraser</button>
+</div>
+<input type="color" id="color" value="#b8862e">
+<input type="range" id="size" min="1" max="50" value="5">
+<button id="undo">↩ Undo</button>
+<button id="clear">🗑 Clear</button>
+<button id="export">💾 Export HTML</button>
+<div style="margin-top:20px;font-size:12px;color:#666;border-top:1px solid #ddd;padding-top:12px;">
+  <strong>Status:</strong> <span id="statusText">Ready</span>
+</div>
+</div>
+
+<div class="stage" id="stage">
+<iframe id="frame"></iframe>
+<svg id="svgLayer"></svg>
+<div class="drawing-indicator" id="drawingIndicator">✏️ DRAWING MODE</div>
+<div class="status-bar" id="statusBar">Click "Start Drawing" to draw on the page</div>
+</div>
+
+</div>
+
+<script>
+let html = "";
+let tool = "pen";
+let color = "#b8862e";
+let size = 5;
+let isDrawingMode = false;
+
+let drawing = false;
+let currentPath = null;
+let currentPoints = [];
+
+const strokes = [];
+
+const frame = document.getElementById("frame");
+const svg = document.getElementById("svgLayer");
+const drawToggle = document.getElementById("drawToggle");
+const statusText = document.getElementById("statusText");
+const drawingIndicator = document.getElementById("drawingIndicator");
+const statusBar = document.getElementById("statusBar");
+
+const NS = "http://www.w3.org/2000/svg";
+
+// Get the iframe's document
+function getIframeDoc() {
+  try {
+    return frame.contentDocument || frame.contentWindow.document;
+  } catch(e) {
+    return null;
+  }
+}
+
+// Get scroll position of iframe
+function getScrollPos() {
+  const doc = getIframeDoc();
+  if (doc) {
+    return {
+      x: doc.documentElement.scrollLeft || doc.body.scrollLeft || 0,
+      y: doc.documentElement.scrollTop || doc.body.scrollTop || 0
+    };
+  }
+  return { x: 0, y: 0 };
+}
+
+// Get position in iframe document coordinates
+function getDocPosition(e) {
+  const svgRect = svg.getBoundingClientRect();
+  const scroll = getScrollPos();
+  
+  return {
+    x: e.clientX - svgRect.left + scroll.x,
+    y: e.clientY - svgRect.top + scroll.y
+  };
+}
+
+// Get position in viewport coordinates (for SVG display)
+function getViewportPosition(e) {
+  const svgRect = svg.getBoundingClientRect();
+  return {
+    x: e.clientX - svgRect.left,
+    y: e.clientY - svgRect.top
+  };
+}
+
+function resizeSVG() {
+  const r = frame.getBoundingClientRect();
+  svg.setAttribute("viewBox", `0 0 ${r.width} ${r.height}`);
+  svg.style.width = r.width + "px";
+  svg.style.height = r.height + "px";
+}
+
+function redraw() {
+  svg.innerHTML = "";
+  const scroll = getScrollPos();
+  
+  for (const s of strokes) {
+    const p = document.createElementNS(NS, "path");
+    // Translate from document coords to viewport coords
+    const translatedD = translatePath(s.d, -scroll.x, -scroll.y);
+    p.setAttribute("d", translatedD);
+    p.setAttribute("fill", "none");
+    p.setAttribute("stroke-linecap", "round");
+    p.setAttribute("stroke-linejoin", "round");
+
+    if (s.type === "eraser") {
+      p.setAttribute("stroke", "#000");
+      p.setAttribute("stroke-width", s.size);
+      p.style.mixBlendMode = "destination-out";
+    } else {
+      p.setAttribute("stroke", s.color);
+      p.setAttribute("stroke-width", s.size);
+    }
+
+    svg.appendChild(p);
+  }
+}
+
+function translatePath(d, dx, dy) {
+  if (!d) return d;
+  
+  // Parse path commands
+  const tokens = d.match(/[ML]\s*[\d.]+\s*[\d.]+/g);
+  if (!tokens) return d;
+  
+  const result = tokens.map(token => {
+    const cmd = token[0];
+    const coords = token.slice(1).trim().split(/\s+/).map(Number);
+    return cmd + (coords[0] + dx) + ' ' + (coords[1] + dy);
+  });
+  
+  return result.join(' ');
+}
+
+function toggleDrawingMode() {
+  isDrawingMode = !isDrawingMode;
+  
+  if (isDrawingMode) {
+    svg.classList.add('active');
+    drawToggle.textContent = '🔒 Stop Drawing';
+    drawToggle.classList.add('active');
+    statusText.textContent = 'Drawing Mode ON';
+    statusText.style.color = '#f44336';
+    drawingIndicator.classList.add('visible');
+    statusBar.textContent = '✏️ Draw anywhere on the page';
+    frame.style.pointerEvents = 'none';
+    redraw();
+  } else {
+    svg.classList.remove('active');
+    drawToggle.textContent = '🎨 Start Drawing';
+    drawToggle.classList.remove('active');
+    statusText.textContent = 'Ready';
+    statusText.style.color = '#666';
+    drawingIndicator.classList.remove('visible');
+    statusBar.textContent = 'Click "Start Drawing" to draw on the page';
+    frame.style.pointerEvents = 'auto';
+    if (drawing) {
+      drawing = false;
+      if (currentPath) {
+        currentPath = null;
+      }
+    }
+  }
+}
+
+drawToggle.onclick = toggleDrawingMode;
+
+/* FILE LOAD */
+document.getElementById("file").onchange = e => {
+  const f = e.target.files[0];
+  const reader = new FileReader();
+  reader.onload = ev => {
+    html = ev.target.result;
+    frame.srcdoc = html;
+    setTimeout(() => {
+      resizeSVG();
+      const doc = getIframeDoc();
+      if (doc) {
+        doc.body.style.overflow = 'auto';
+        doc.documentElement.style.overflow = 'auto';
+        doc.addEventListener('scroll', () => {
+          redraw();
+        });
+      }
+    }, 500);
+  };
+  reader.readAsText(f);
+};
+
+/* TOOL */
+document.getElementById("pen").onclick = () => {
+  tool = "pen";
+  if (!isDrawingMode) toggleDrawingMode();
+};
+document.getElementById("eraser").onclick = () => {
+  tool = "eraser";
+  if (!isDrawingMode) toggleDrawingMode();
+};
+document.getElementById("color").oninput = e => color = e.target.value;
+document.getElementById("size").oninput = e => size = +e.target.value;
+
+/* DRAW - Store in document coordinates */
+svg.addEventListener("pointerdown", e => {
+  if (!isDrawingMode) return;
+  
+  drawing = true;
+  svg.setPointerCapture(e.pointerId);
+
+  currentPoints = [];
+  const p = getDocPosition(e);
+  currentPoints.push(p);
+
+  currentPath = document.createElementNS(NS, "path");
+  currentPath.setAttribute("fill", "none");
+
+  if (tool === "eraser") {
+    currentPath.setAttribute("stroke", "#000");
+    currentPath.setAttribute("stroke-width", size);
+    currentPath.setAttribute("data-type", "erase");
+    currentPath.style.mixBlendMode = "destination-out";
+  } else {
+    currentPath.setAttribute("stroke", color);
+    currentPath.setAttribute("stroke-width", size);
+    currentPath.setAttribute("data-type", "pen");
+  }
+
+  currentPath.setAttribute("stroke-linecap", "round");
+  currentPath.setAttribute("stroke-linejoin", "round");
+
+  // Draw in viewport coordinates (translated from document)
+  const scroll = getScrollPos();
+  const viewportP = {
+    x: p.x - scroll.x,
+    y: p.y - scroll.y
+  };
+  currentPath.setAttribute("d", `M ${viewportP.x} ${viewportP.y}`);
+  svg.appendChild(currentPath);
+});
+
+svg.addEventListener("pointermove", e => {
+  if (!drawing || !isDrawingMode) return;
+
+  const p = getDocPosition(e);
+  currentPoints.push(p);
+
+  // Build path in viewport coordinates
+  const scroll = getScrollPos();
+  let d = "M " + currentPoints.map(p => 
+    `${p.x - scroll.x} ${p.y - scroll.y}`
+  ).join(" L ");
+  currentPath.setAttribute("d", d);
+});
+
+svg.addEventListener("pointerup", e => {
+  if (!drawing) return;
+  drawing = false;
+
+  if (currentPath) {
+    // Store path in document coordinates
+    const scroll = getScrollPos();
+    const docPoints = currentPoints.map(p => ({ x: p.x, y: p.y }));
+    let d = "M " + docPoints.map(p => `${p.x} ${p.y}`).join(" L ");
+    
+    if (d && d !== "M ") {
+      strokes.push({
+        d: d,
+        color: color,
+        size: size,
+        type: tool
+      });
+    }
+    currentPath = null;
+    currentPoints = [];
+  }
+});
+
+svg.addEventListener("pointercancel", e => {
+  if (drawing) {
+    drawing = false;
+    if (currentPath) {
+      currentPath = null;
+    }
+    currentPoints = [];
+  }
+});
+
+/* SCROLL HANDLING */
+svg.addEventListener('wheel', e => {
+  if (!isDrawingMode) {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    try {
+      const doc = getIframeDoc();
+      if (doc) {
+        doc.documentElement.scrollTop += e.deltaY;
+        doc.documentElement.scrollLeft += e.deltaX;
+        setTimeout(redraw, 50);
+      }
+    } catch(err) {}
+  }
+}, { passive: false });
+
+/* CLEAR */
+document.getElementById("clear").onclick = () => {
+  if (confirm('Clear all drawings?')) {
+    svg.innerHTML = "";
+    strokes.length = 0;
+  }
+};
+
+/* UNDO */
+document.getElementById("undo").onclick = () => {
+  if (strokes.length === 0) return;
+  strokes.pop();
+  redraw();
+};
+
+/* EXPORT */
+document.getElementById("export").onclick = () => {
+  if (!html) {
+    alert('Please load an HTML file first!');
+    return;
+  }
+  
+  try {
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    
+    const container = doc.createElement('div');
+    container.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:hidden;z-index:9999;';
+    
+    const svgEl = doc.createElementNS(NS, 'svg');
+    svgEl.setAttribute('xmlns', NS);
+    svgEl.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;';
+    
+    for (const s of strokes) {
+      const path = doc.createElementNS(NS, 'path');
+      path.setAttribute('d', s.d);
+      path.setAttribute('fill', 'none');
+      path.setAttribute('stroke-linecap', 'round');
+      path.setAttribute('stroke-linejoin', 'round');
+      
+      if (s.type === "eraser") {
+        path.setAttribute('stroke', '#000');
+        path.setAttribute('stroke-width', s.size);
+        path.style.mixBlendMode = 'destination-out';
+      } else {
+        path.setAttribute('stroke', s.color);
+        path.setAttribute('stroke-width', s.size);
+      }
+      
+      svgEl.appendChild(path);
+    }
+    
+    container.appendChild(svgEl);
+    doc.body.style.position = 'relative';
+    doc.body.style.minHeight = '100vh';
+    doc.body.style.margin = '0';
+    doc.body.insertBefore(container, doc.body.firstChild);
+    
+    const doctype = '<!DOCTYPE html>\n';
+    const htmlString = doctype + doc.documentElement.outerHTML;
+    
+    const blob = new Blob([htmlString], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'doodled.html';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 100);
+    
+  } catch (err) {
+    alert('Error exporting: ' + err.message);
+    console.error(err);
+  }
+};
+
+window.addEventListener('resize', resizeSVG);
+
+setTimeout(() => {
+  resizeSVG();
+  redraw();
+}, 100);
+
+document.addEventListener('keydown', e => {
+  if ((e.key === 'd' || e.key === 'D') && !e.ctrlKey && !e.metaKey) {
+    toggleDrawingMode();
+    e.preventDefault();
+  }
+  if (e.key === 'Escape' && isDrawingMode) {
+    toggleDrawingMode();
+    e.preventDefault();
+  }
+});
+
+console.log('🎨 Backdraw SVG Engine - ACCURATE!');
+console.log('📌 Draw exactly where your cursor is');
+console.log('📌 Press "D" to toggle drawing mode');
+</script>
+
+</body>
+</html>

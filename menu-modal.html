@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CDC Menu Modal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --gold: #F5A800;
+      --gold-dark: #D4900A;
+      --gold-light: #FFD166;
+      --gold-glow: rgba(245,168,0,.18);
+      --black: #0a0a0a;
+      --dark: #111;
+      --dark2: #181818;
+      --dark3: #1e1e1e;
+      --white: #fff;
+    }
+    *,*::before,*::after { 
+      box-sizing: border-box; 
+      margin: 0; 
+      padding: 0; 
+    }
+    
+    body { 
+      background: var(--dark); 
+      font-family: 'Montserrat', sans-serif;
+      overflow: hidden;
+      height: 100vh;
+      color: var(--white);
+    }
+
+    /* ── Modal shell ── */
+    .menu-modal {
+      width: 100%;
+      height: 100vh;
+      max-height: 100vh;
+      background: var(--dark);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border-radius: 20px;
+      border: 1.5px solid var(--gold);
+      box-shadow: 0 0 60px rgba(245,168,0,.15), 0 30px 80px rgba(0,0,0,.7);
+    }
+
+    /* ── Modal header ── */
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      border-bottom: 1px solid rgba(245,168,0,.2);
+      background: var(--black);
+      flex-shrink: 0;
+    }
+    .modal-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .modal-logo-text {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 22px;
+      letter-spacing: 2px;
+      color: var(--white);
+    }
+    .modal-logo-text span { 
+      color: var(--gold); 
+    }
+    .modal-title-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      color: rgba(255,255,255,.4);
+      text-transform: uppercase;
+    }
+
+
+    /* ── Page tabs ── */
+    .menu-tabs {
+      display: flex;
+      gap: 0;
+      padding: 0 24px;
+      border-bottom: 1px solid rgba(245,168,0,.15);
+      background: var(--black);
+      flex-shrink: 0;
+    }
+    .menu-tab {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.45);
+      padding: 12px 20px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      position: relative;
+      transition: color .2s;
+    }
+    .menu-tab::after {
+      content: '';
+      position: absolute;
+      bottom: 0; 
+      left: 0; 
+      right: 0;
+      height: 2px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transition: transform .25s;
+    }
+    .menu-tab.active { 
+      color: var(--gold); 
+    }
+    .menu-tab.active::after { 
+      transform: scaleX(1); 
+    }
+    .menu-tab:hover { 
+      color: rgba(245,168,0,.8); 
+    }
+
+    /* ── Body: menu content + preview ── */
+    .modal-body {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* ── Menu pages ── */
+    .menu-pages {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 20px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--gold) #1a1a1a;
+    }
+    .menu-pages::-webkit-scrollbar { 
+      width: 4px; 
+    }
+    .menu-pages::-webkit-scrollbar-track { 
+      background: #111; 
+    }
+    .menu-pages::-webkit-scrollbar-thumb { 
+      background: var(--gold); 
+      border-radius: 2px; 
+    }
+
+    .menu-page { 
+      display: none; 
+    }
+    .menu-page.active { 
+      display: block; 
+      animation: pageIn .25s ease; 
+    }
+    @keyframes pageIn { 
+      from { opacity:0; transform:translateX(12px) } 
+      to { opacity:1; transform:translateX(0) } 
+    }
+
+    /* ── Section titles ── */
+    .sec-title {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 15px;
+      letter-spacing: 3px;
+      background: var(--gold);
+      color: #000;
+      padding: 5px 14px;
+      border-radius: 4px;
+      display: inline-block;
+      margin-bottom: 10px;
+      margin-top: 4px;
+    }
+    .sec-sub {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 13px;
+      letter-spacing: 2px;
+      color: var(--gold);
+      border: 1px solid rgba(245,168,0,.35);
+      border-radius: 4px;
+      padding: 3px 10px;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+
+    /* ── Deals grid ── */
+    .deals-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .deal-card {
+      border: 1.5px solid rgba(245,168,0,.25);
+      border-radius: 8px;
+      padding: 10px 12px;
+      background: var(--dark2);
+      cursor: pointer;
+      transition: border-color .2s, background .2s, transform .15s, box-shadow .2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .deal-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 0%, rgba(245,168,0,.06), transparent 70%);
+      opacity: 0;
+      transition: opacity .2s;
+    }
+    .deal-card:hover { 
+      border-color: var(--gold); 
+      background: #1f1b0f; 
+      transform: translateY(-2px); 
+      box-shadow: 0 6px 20px rgba(245,168,0,.1); 
+    }
+    .deal-card:hover::before { 
+      opacity: 1; 
+    }
+    .deal-price {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 16px;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+    .deal-items {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10.5px;
+      font-weight: 500;
+      color: rgba(255,255,255,.8);
+      line-height: 1.55;
+    }
+
+    /* ── Standard list items ── */
+    .menu-list { 
+      list-style: none; 
+      margin-bottom: 14px; 
+    }
+    .menu-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      padding: 7px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background .18s, transform .15s;
+      border: 1px solid transparent;
+    }
+    .menu-list li:hover {
+      background: rgba(245,168,0,.07);
+      border-color: rgba(245,168,0,.2);
+      transform: translateX(4px);
+    }
+    .menu-list li .item-name {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--white);
+      flex: 1;
+    }
+    .menu-list li .item-price {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--gold);
+      white-space: nowrap;
+    }
+    .menu-list li .item-dot {
+      flex: 1;
+      border-bottom: 1px dotted rgba(255,255,255,.15);
+      min-width: 20px;
+      margin: 0 6px;
+      margin-bottom: 2px;
+    }
+    .item-note {
+      font-size: 9px;
+      color: rgba(255,255,255,.35);
+      font-family: 'Montserrat', sans-serif;
+      font-style: italic;
+      margin-left: 4px;
+    }
+
+    /* ── Pizza size row ── */
+    .pizza-sizes {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 0;
+      border: 1px solid rgba(245,168,0,.2);
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 3px;
+      cursor: pointer;
+      transition: background .18s;
+    }
+    .pizza-sizes:hover { 
+      background: rgba(245,168,0,.06); 
+    }
+    .pizza-sizes > div {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 7px 8px;
+      color: rgba(255,255,255,.8);
+    }
+    .pizza-sizes > div:not(:first-child) {
+      text-align: center;
+      color: var(--gold);
+      border-left: 1px solid rgba(245,168,0,.15);
+    }
+    .pizza-sizes-header { 
+      background: rgba(245,168,0,.12); 
+    }
+    .pizza-sizes-header > div { 
+      color: var(--gold) !important; 
+      font-weight: 700; 
+      font-size: 9px; 
+      letter-spacing: 1px; 
+    }
+
+    /* ── Highlight block ── */
+    .highlight-block {
+      background: linear-gradient(135deg, #1a1500 0%, #111 100%);
+      border: 1.5px solid var(--gold);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      transition: box-shadow .2s, transform .15s;
+    }
+    .highlight-block:hover { 
+      box-shadow: 0 0 24px rgba(245,168,0,.2); 
+      transform: translateY(-2px); 
+    }
+    .highlight-price {
+      font-family:'Bebas Neue',cursive; 
+      font-size:22px; 
+      color:var(--gold); 
+      letter-spacing:1px; 
+    }
+    .highlight-items {
+      font-family:'Montserrat',sans-serif; 
+      font-size:11px; 
+      color:rgba(255,255,255,.85); 
+      margin-top:3px; 
+      line-height:1.6; 
+    }
+
+    /* ── Pasta price tag ── */
+    .pasta-prices {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .pasta-tag {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 13px;
+      padding: 3px 10px;
+      border-radius: 4px;
+    }
+    .pasta-tag.small { 
+      background: var(--gold); 
+      color: #000; 
+    }
+    .pasta-tag.large { 
+      border: 1.5px solid var(--gold); 
+      color: var(--gold); 
+    }
+    .pasta-tag .tag-label { 
+      font-size: 8px; 
+      font-family: 'Montserrat', sans-serif; 
+      font-weight: 700; 
+      letter-spacing: 1px; 
+      display: block; 
+    }
+
+    /* ── Two-col layout ── */
+    .two-col { 
+      display: grid; 
+      grid-template-columns: 1fr 1fr; 
+      gap: 16px; 
+    }
+
+    /* ── Promo card ── */
+    .promo-card {
+      background: linear-gradient(135deg, #1a1500, #0a0a0a);
+      border: 1.5px solid var(--gold);
+      border-radius: 10px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: 10px;
+      cursor: pointer;
+      transition: box-shadow .2s;
+    }
+    .promo-card:hover { 
+      box-shadow: 0 0 24px rgba(245,168,0,.2); 
+    }
+    .promo-card-icon { 
+      font-size: 28px; 
+      flex-shrink: 0; 
+    }
+    .promo-card-price {
+      font-family:'Bebas Neue',cursive; 
+      font-size:22px; 
+      color:var(--gold); 
+    }
+    .promo-card-label {
+      font-family:'Montserrat',sans-serif; 
+      font-size:11px; 
+      font-weight:600; 
+      color:var(--white); 
+    }
+
+    /* ── Preview panel ── */
+    .preview-panel {
+      width: 240px;
+      flex-shrink: 0;
+      border-left: 1px solid rgba(245,168,0,.15);
+      background: var(--black);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .preview-header {
+      padding: 14px 16px 10px;
+      border-bottom: 1px solid rgba(245,168,0,.12);
+      flex-shrink: 0;
+    }
+    .preview-header h3 {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 14px;
+      letter-spacing: 2px;
+      color: var(--gold);
+    }
+    .preview-header p {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 9px;
+      color: rgba(255,255,255,.35);
+      margin-top: 2px;
+    }
+    .preview-img-wrap {
+      width: 100%;
+      height: 160px;
+      background: var(--dark2);
+      flex-shrink: 0;
+      overflow: hidden;
+      position: relative;
+    }
+    .preview-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: opacity .3s;
+    }
+    .preview-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .preview-placeholder-icon {
+      width: 48px; 
+      height: 48px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(245,168,0,.3);
+      display: flex; 
+      align-items: center; 
+      justify-content: center;
+    }
+    .preview-placeholder span {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 9px;
+      color: rgba(255,255,255,.3);
+      text-align: center;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .preview-info {
+      padding: 14px 16px;
+      flex: 1;
+      overflow-y: auto;
+    }
+    .preview-name {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 18px;
+      letter-spacing: 1px;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+    .preview-price {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 22px;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+    .preview-desc {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10.5px;
+      color: rgba(255,255,255,.6);
+      line-height: 1.6;
+    }
+    .preview-empty-text {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      color: rgba(255,255,255,.25);
+      text-align: center;
+      padding: 20px 12px;
+      line-height: 1.7;
+    }
+    .preview-add-btn {
+      margin: 14px 16px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      background: var(--gold);
+      color: #000;
+      border: none;
+      border-radius: 30px;
+      padding: 10px 18px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background .2s, transform .15s;
+      display: none;
+    }
+    .preview-add-btn.visible { 
+      display: flex; 
+    }
+    .preview-add-btn:hover { 
+      background: var(--gold-dark); 
+      transform: translateY(-1px); 
+    }
+
+    /* ── Footer info ── */
+    .modal-footer {
+      padding: 10px 24px;
+      border-top: 1px solid rgba(245,168,0,.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      background: var(--black);
+    }
+    .footer-delivery {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 9.5px;
+      color: rgba(255,255,255,.45);
+    }
+    .footer-delivery strong { 
+      color: var(--gold); 
+      font-weight: 700; 
+    }
+    .footer-phone {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 9.5px;
+      color: rgba(255,255,255,.35);
+    }
+
+    /* ── Utility ── */
+    .mb-8 { margin-bottom: 8px; }
+    .mb-12 { margin-bottom: 12px; }
+    .mt-10 { margin-top: 10px; }
+
+    /* ── Responsive ── */
+    @media (max-width: 680px) {
+      .preview-panel { display: none; }
+      .two-col { grid-template-columns: 1fr; }
+      .deals-grid { grid-template-columns: 1fr 1fr; }
+      .menu-modal { border-radius: 0; border: none; }
+      body { background: var(--dark); }
+    }
+    @media (max-width: 480px) {
+      .deals-grid { grid-template-columns: 1fr; }
+      .modal-header { padding: 12px 16px; }
+      .modal-tabs { padding: 0 12px; }
+      .menu-tab { font-size: 9px; padding: 10px 12px; }
+      .menu-pages { padding: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- ═══ MODAL CONTENT ONLY (NO OVERLAY WRAPPER) ═══ -->
+  <div class="menu-modal">
+    <!-- Header -->
+    <div class="modal-header">
+      <div class="modal-logo">
+        <div>
+          <div class="modal-title-label">Full Menu</div>
+          <div class="modal-logo-text">CAFE DE <span>CHARIOT</span></div>
+        </div>
+      </div>
+      <button class="modal-close" onclick="closeModalFromInside()" aria-label="Close">✕</button>
+    </div>
+
+    <!-- Tabs -->
+    <div class="menu-tabs">
+      <button class="menu-tab active" onclick="switchPage(0,this)">Deals & Beverages</button>
+      <button class="menu-tab" onclick="switchPage(1,this)">Pizza, Burgers & More</button>
+    </div>
+
+    <!-- Body -->
+    <div class="modal-body">
+
+      <!-- ── Menu Pages ── -->
+      <div class="menu-pages">
+
+        <!-- ══ PAGE 1 ══ -->
+        <div class="menu-page active" id="page-0">
+          <div class="two-col">
+
+            <!-- Left col -->
+            <div>
+              <div class="sec-title">Student Deals</div>
+              <div class="deals-grid mb-8">
+                <div class="deal-card" onclick="showPreview('1 Patty Burger, Fries & Drink','Rs.500/-','','Crispy patty burger with golden fries and your choice of drink.',this)">
+                  <div class="deal-price">Rs.500/-</div>
+                  <div class="deal-items">1 Patty Burger<br>Fries & Drink</div>
+                </div>
+                <div class="deal-card" onclick="showPreview('1 Zinger Burger, Drink & Fries','Rs.590/-','','Crunchy zinger burger served with fries and a chilled drink.',this)">
+                  <div class="deal-price">Rs.590/-</div>
+                  <div class="deal-items">1 Zinger Burger<br>Drink & Fries</div>
+                </div>
+                <div class="deal-card" onclick="showPreview('1 Boston Burger, 4 Pcs Wings, 350ml Drink','Rs.600/-','','Boston burger with 4 crispy chicken wings and a 350ml drink.',this)">
+                  <div class="deal-price">Rs.600/-</div>
+                  <div class="deal-items">1 Boston Burger<br>4 Pcs Wings<br>350ml Drink</div>
+                </div>
+                <div class="deal-card" onclick="showPreview('1 Steak Burger, 4 Pcs Nuggets, 350ml Drink','Rs.730/-','','Juicy steak burger with 4 chicken nuggets and a 350ml drink.',this)">
+                  <div class="deal-price">Rs.730/-</div>
+                  <div class="deal-items">1 Steak Burger<br>4 Pcs Nuggets<br>350ml Drink</div>
+                </div>
+                <div class="deal-card" onclick="showPreview('2 Small Pizza, 4 Pcs Wings, 2 Reg Drinks','Rs.1200/-','','Two small pizzas, crispy wings, and two reg drinks.',this)">
+                  <div class="deal-price">Rs.1200/-</div>
+                  <div class="deal-items">2 Small Pizza<br>4 Pcs Wings<br>2 Reg Drinks</div>
+                </div>
+                <div class="deal-card" onclick="showPreview('1 Medium Pizza, 2 Zinger Burger, 1 Ltr Drink','Rs.1650/-','','Medium pizza, two zingers and a litre drink.',this)">
+                  <div class="deal-price">Rs.1650/-</div>
+                  <div class="deal-items">Medium Pizza<br>2 Zinger Burger<br>1 Ltr Drink</div>
+                </div>
+              </div>
+
+              <div class="sec-title mt-10">Family Deals</div>
+              <div class="deals-grid">
+                <div class="deal-card" onclick="showPreview('2 Large Pizza & 1.5 Ltr Drink','Rs.2800/-','','Two large pizzas and a 1.5 litre drink.',this)">
+                  <div class="deal-price">Rs.2800/-</div>
+                  <div class="deal-items">2 Large Pizza<br>1.5 Ltr Drink</div>
+                </div>
+                <div class="deal-card" onclick="showPreview('2 Medium Pizza, 10 Pcs Nuggets, 1.5 Ltr Drink','Rs.2300/-','','Two medium pizzas, 10 nuggets and a 1.5 litre drink.',this)">
+                  <div class="deal-price">Rs.2300/-</div>
+                  <div class="deal-items">2 Medium Pizza<br>10 Pcs Nuggets<br>1.5 Ltr Drink</div>
+                </div>
+                <div class="deal-card" onclick="showPreview('1 Large + 1 Medium Pizza, 6 Pcs Wings, 1.5 Ltr Drink','Rs.2550/-','','',this)">
+                  <div class="deal-price">Rs.2550/-</div>
+                  <div class="deal-items">1 Large Pizza<br>1 Medium Pizza<br>6 Pcs Wings<br>1.5 Ltr Drink</div>
+                </div>
+                <div class="deal-card" onclick="showPreview('2 Zinger Burgers, 2 Pcs Fried Chicken, 1 Fries n Dip Sauce, 2 Drinks','Rs.1500/-','','',this)">
+                  <div class="deal-price">Rs.1500/-</div>
+                  <div class="deal-items">2 Zinger Burgers<br>2 Pcs Fried Chicken<br>1 Fries n Dip Sauce<br>2 Drinks</div>
+                </div>
+                <div class="deal-card" onclick="showPreview('1 Large Pizza, 3 Zinger Burger, 10 Fried Wings, 1.5 Ltr Drink','Rs.2950/-','','',this)">
+                  <div class="deal-price">Rs.2950/-</div>
+                  <div class="deal-items">1 Large Pizza<br>3 Zinger Burger<br>10 Fried Wings<br>1.5 Ltr Drink</div>
+                </div>
+                <div class="deal-card" onclick="showPreview('2 Zinger Burger, 2 Steak Burger, 10 Fried Wings, 1 Saucy Fries, 1.5 Ltr Drink','Rs.2600/-','','',this)">
+                  <div class="deal-price">Rs.2600/-</div>
+                  <div class="deal-items">2 Zinger Burger<br>2 Steak Burger<br>10 Fried Wings<br>1 Saucy Fries<br>1.5 Ltr Drink</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right col -->
+            <div>
+              <!-- Pasta -->
+              <div class="sec-title">Pasta</div>
+              <div class="pasta-prices mb-8">
+                <div class="pasta-tag small"><span class="tag-label">Small</span>Rs.440/-</div>
+                <div class="pasta-tag large"><span class="tag-label">Large</span>Rs.650/-</div>
+              </div>
+              <ul class="menu-list mb-12">
+                <li onclick="showPreview('Pizza Pasta','Rs.440 / Rs.650','','Classic pizza-style pasta with rich tomato sauce and mozzarella.',this)">
+                  <span class="item-name">Pizza Pasta</span>
+                  <span class="item-dot"></span>
+                  <span class="item-price">440 / 650</span>
+                </li>
+                <li onclick="showPreview('Hot Flaming Pasta','Rs.440 / Rs.650','','Fiery spiced pasta with a kick of chilli.',this)">
+                  <span class="item-name">Hot Flaming Pasta</span>
+                  <span class="item-dot"></span>
+                  <span class="item-price">440 / 650</span>
+                </li>
+                <li onclick="showPreview('Garlic Butter Pasta','Rs.440 / Rs.650','','Creamy garlic butter pasta with herbs.',this)">
+                  <span class="item-name">Garlic Butter Pasta</span>
+                  <span class="item-dot"></span>
+                  <span class="item-price">440 / 650</span>
+                </li>
+                <li onclick="showPreview('Lasagna','Rs.690','','Layered meat and béchamel lasagna, baked to perfection.',this)">
+                  <span class="item-name">Lasagna</span>
+                  <span class="item-dot"></span>
+                  <span class="item-price">Rs.690</span>
+                </li>
+              </ul>
+
+              <!-- Broast Corner -->
+              <div class="sec-title">Broast Corner</div>
+              <div class="deals-grid mb-8">
+                <div class="deal-card" onclick="showPreview('Broast Deal — 2 Pcs Chicken','Rs.750/-','','2 Pcs Chicken, Bun, Sauce, Fries & Reg Drink.',this)">
+                  <div class="deal-price">Rs.750/-</div>
+                  <div class="deal-items">02 Pcs Chicken<br>Bun, Sauce, Fries<br>&amp; Reg Drink</div>
+                </div>
+                <div class="deal-card" onclick="showPreview('Broast Deal — 4 Pcs Chicken','Rs.1350/-','','4 Pcs Chicken, 2 Bun, Sauce, Fries &amp; 2 Drinks.',this)">
+                  <div class="deal-price">Rs.1350/-</div>
+                  <div class="deal-items">04 Pcs Chicken<br>2 Bun, Sauce, Fries<br>&amp; 2 Drinks</div>
+                </div>
+              </div>
+              <div class="highlight-block" onclick="showPreview('Broast Mega Deal — 8 Pcs Chicken','Rs.2500/-','','08 Pcs Chicken, 4 Bun, 2 Sauce, Large Fries &amp; 1.5 Ltr Drink.',this)">
+                <div class="highlight-price">Rs.2500/-</div>
+                <div class="highlight-items">08 Pcs Chicken · 4 Bun · 2 Sauce<br>Large Fries · 1.5ltr Drink</div>
+              </div>
+
+              <!-- Drinks -->
+              <div class="sec-title">Drinks</div>
+              <ul class="menu-list mb-12">
+                <li onclick="showPreview('Cappuccino','Rs.300','','Rich espresso topped with silky steamed milk foam.',this)"><span class="item-name">Cappuccino</span><span class="item-dot"></span><span class="item-price">300/-</span></li>
+                <li onclick="showPreview('Hot Chocolate','Rs.330','','Thick, velvety hot chocolate.',this)"><span class="item-name">Hot Chocolate</span><span class="item-dot"></span><span class="item-price">330/-</span></li>
+                <li onclick="showPreview('Cold Coffee','Rs.390','','Chilled blended coffee.',this)"><span class="item-name">Cold Coffee</span><span class="item-dot"></span><span class="item-price">390/-</span></li>
+                <li onclick="showPreview('Vanilla Ice-Cream Shake','Rs.370','','Creamy vanilla shake blended with ice cream.',this)"><span class="item-name">Vanilla Ice-Cream Shake</span><span class="item-dot"></span><span class="item-price">370/-</span></li>
+                <li onclick="showPreview('Chocolate Ice-Cream Shake','Rs.370','','Rich chocolate milkshake with ice cream.',this)"><span class="item-name">Chocloate Ice-Cream Shake</span><span class="item-dot"></span><span class="item-price">370/-</span></li>
+                <li onclick="showPreview('Oreo Shake','Rs.400','','Oreo cookie blended shake.',this)"><span class="item-name">Oreo Shake</span><span class="item-dot"></span><span class="item-price">400/-</span></li>
+              </ul>
+
+              <!-- Fries -->
+              <div class="sec-title">Fries</div>
+              <ul class="menu-list mb-12">
+                <li onclick="showPreview('Regular Fries','Rs.180','','Lightly salted crispy regular fries.',this)"><span class="item-name">Regular Fries</span><span class="item-dot"></span><span class="item-price">180/-</span></li>
+                <li onclick="showPreview('Plain Fries','Rs.280','','Classic plain fries.',this)"><span class="item-name">Plain Fries</span><span class="item-dot"></span><span class="item-price">280/-</span></li>
+                <li onclick="showPreview('Masala Fries','Rs.330','','Fries tossed in house masala spice blend.',this)"><span class="item-name">Masala Fries</span><span class="item-dot"></span><span class="item-price">330/-</span></li>
+                <li onclick="showPreview('Fries Served With Sauce','Rs.450','','Crispy fries served with dipping sauce.',this)"><span class="item-name">Fries Served With Sauce</span><span class="item-dot"></span><span class="item-price">450/-</span></li>
+                <li onclick="showPreview('Cheese Loaded Fries','Rs.450','','Fries piled high with melted cheese.',this)"><span class="item-name">Cheese Loaded Fries</span><span class="item-dot"></span><span class="item-price">450/-</span></li>
+                <li onclick="showPreview('Pizza Fries','S:Rs.400 / L:Rs.580','','Pizza-topped fries with cheese and sauce.',this)"><span class="item-name">Pizza Fries</span><span class="item-dot"></span><span class="item-price">S:400 / L:580</span></li>
+                <li onclick="showPreview('Plain Family Fries','Rs.400','','Large portion plain fries for the family.',this)"><span class="item-name">Plain Family Fries</span><span class="item-dot"></span><span class="item-price">400/-</span></li>
+              </ul>
+
+              <div class="sec-sub">Beverages — Available at market price</div>
+            </div>
+          </div>
+        </div><!-- /page-0 -->
+
+        <!-- ══ PAGE 2 ══ -->
+        <div class="menu-page" id="page-1">
+          <div class="two-col">
+
+            <!-- Left col -->
+            <div>
+              <!-- CDC Fusion 21 -->
+              <div class="highlight-block mb-12" style="cursor:pointer" onclick="showPreview('CDC Fusion 21','Rs.3200/-','','The ultimate combo deal — everything you need for a full family feast!',this)">
+                <div style="display:flex;align-items:center;justify-content:space-between;">
+                  <span style="font-family:'Bebas Neue',cursive;font-size:18px;letter-spacing:2px;color:var(--white)">CDC FUSION 21</span>
+                  <span class="highlight-price">Rs.3200/-</span>
+                </div>
+              </div>
+
+              <!-- Special Pizza -->
+              <div class="sec-title">Special Pizza</div>
+              <div class="pizza-sizes pizza-sizes-header mb-8" style="cursor:default;pointer-events:none;">
+                <div>Name</div><div>7"</div><div>10"</div><div>13"</div>
+              </div>
+              <div id="sp-pizzas"></div>
+
+              <!-- Traditional Pizza -->
+              <div class="sec-title mt-10">Traditional Pizza</div>
+              <div class="pizza-sizes pizza-sizes-header mb-8" style="cursor:default;pointer-events:none;">
+                <div>Name</div><div>7"</div><div>10"</div><div>13"</div>
+              </div>
+              <div id="tr-pizzas"></div>
+
+              <!-- Crust Pizza -->
+              <div class="sec-title mt-10">Crust Pizza</div>
+              <div id="crust-pizzas"></div>
+
+              <!-- Extra Toppings -->
+              <div class="sec-sub mt-10">Extra Toppings</div>
+              <ul class="menu-list">
+                <li onclick="showPreview('Extra Toppings (Small)','Rs.100','','Add extra toppings to your pizza.',this)"><span class="item-name">Small</span><span class="item-dot"></span><span class="item-price">S: 100/-</span></li>
+                <li onclick="showPreview('Extra Toppings (Medium)','Rs.200','','Add extra toppings to your pizza.',this)"><span class="item-name">Medium</span><span class="item-dot"></span><span class="item-price">M: 200/-</span></li>
+                <li onclick="showPreview('Extra Toppings (Large)','Rs.240','','Add extra toppings to your pizza.',this)"><span class="item-name">Large</span><span class="item-dot"></span><span class="item-price">L: 240/-</span></li>
+              </ul>
+            </div>
+
+            <!-- Right col -->
+            <div>
+              <!-- Wraps -->
+              <div class="sec-title">Wraps</div>
+              <ul class="menu-list mb-12" id="wraps-list"></ul>
+
+              <!-- Grill Burgers -->
+              <div class="sec-title">Grill Burgers</div>
+              <ul class="menu-list mb-12" id="grill-burgers-list"></ul>
+
+              <!-- Burgers -->
+              <div class="sec-title">Burgers</div>
+              <ul class="menu-list mb-12" id="burgers-list"></ul>
+
+              <!-- Rolls -->
+              <div class="sec-title">Rolls</div>
+              <ul class="menu-list mb-12" id="rolls-list"></ul>
+
+              <!-- Sandwiches -->
+              <div class="sec-title">Sandwiches</div>
+              <ul class="menu-list mb-12" id="sandwiches-list"></ul>
+
+              <!-- Nuggets -->
+              <div class="sec-title">Nuggets</div>
+              <ul class="menu-list mb-12" id="nuggets-list"></ul>
+
+              <!-- Wings -->
+              <div class="sec-title">Wings</div>
+              <ul class="menu-list mb-12" id="wings-list"></ul>
+
+              <!-- Sidelines -->
+              <div class="sec-title">Sidelines</div>
+              <ul class="menu-list mb-12" id="sidelines-list"></ul>
+
+              <!-- Add-ons -->
+              <div class="sec-title">Add-Ons</div>
+              <ul class="menu-list mb-8" id="addons-list"></ul>
+
+              <!-- Molten Lava promo -->
+              <div class="promo-card" onclick="showPreview('Molten Lava Cake with Ice-Cream','Rs.400/-','','Warm chocolate lava cake served with a scoop of vanilla ice cream.',this)">
+                <div class="promo-card-icon">🍰</div>
+                <div class="promo-card-text">
+                  <div class="promo-card-price">Rs.400/-</div>
+                  <div class="promo-card-label">Molten Lava Cake<br>with Ice-Cream</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><!-- /page-1 -->
+
+      </div><!-- /menu-pages -->
+
+      <!-- ── Preview Panel ── -->
+      <div class="preview-panel">
+        <div class="preview-header">
+          <h3>Item Preview</h3>
+          <p>Click any item to preview</p>
+        </div>
+        <div class="preview-img-wrap">
+          <div class="preview-placeholder" id="previewPlaceholder">
+            <div class="preview-placeholder-icon">
+              <svg width="22" height="22" fill="none" stroke="rgba(245,168,0,.5)" stroke-width="1.5" viewBox="0 0 24 24">
+                <rect x="3" y="3" width="18" height="18" rx="3"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <path d="M21 15l-5-5L5 21"/>
+              </svg>
+            </div>
+            <span>Add your<br>image here</span>
+          </div>
+          <img id="previewImg" src="" alt="" style="opacity:0;position:relative;z-index:1;">
+        </div>
+        <div class="preview-info" id="previewInfo">
+          <div class="preview-empty-text">Select any item from the menu to see its details here.<br><br>You can add images and descriptions for each dish.</div>
+        </div>
+        <button class="preview-add-btn" id="previewAddBtn">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add to Order
+        </button>
+      </div>
+
+    </div><!-- /modal-body -->
+
+    <!-- Footer -->
+    <div class="modal-footer">
+      <div class="footer-delivery">
+        🛵 Home Delivery RYK &nbsp;|&nbsp;
+        <strong>068-5905608 · 0300-1452900 · 0332-1452900</strong>
+      </div>
+      <div class="footer-phone">W Block, Gulshan Iqbal, R.Y.K</div>
+    </div>
+  </div>
+
+  <script>
+    /* ── Data ── */
+    const specialPizzas = [
+      { name:"Kids Special Pizza", note:"Non spicy chicken", p7:500, p10:950, p13:1450 },
+      { name:"CDC Special Pizza",  note:"Onion, Capsicum, Sausage", p7:490, p10:920, p13:1450 },
+      { name:"Shahi Malai",        note:"Tikka sauce, Onions, Tomato, Jalapeno", p7:490, p10:920, p13:1450 },
+      { name:"Legend Ranch",       note:"Onions, Greens and Green chilli", p7:490, p10:920, p13:1450 },
+      { name:"Bonfire Pizza",      note:"Onion, Capsicum, Tomato and Jalapeno", p7:490, p10:920, p13:1450 },
+      { name:"Smoked B.B.Q Pizza", note:"Smoked chicken, Onion and Olives", p7:490, p10:920, p13:1450 },
+      { name:"Kababish Pizza",     note:"Kabab, Onions, Jalapeno and Tomato", p7:490, p10:920, p13:1450 },
+    ];
+    const tradPizzas = [
+      { name:"Pizza",        note:"With a lot of Onions", p7:450, p10:860, p13:1350 },
+      { name:"Fajita Pizza", note:"Fajita chicken, Onions and Olives", p7:450, p10:860, p13:1350 },
+      { name:"Supreme Pizza",note:"Beef, Chicken, Mushroom & Capsicum", p7:460, p10:880, p13:1400 },
+      { name:"Malai Tikka Pizza",note:"Malai sauce, Onions and Olives", p7:460, p10:880, p13:1400 },
+      { name:"Hot & Spicy Pizza",note:"Jalapeno and Tomato", p7:450, p10:860, p13:1350 },
+      { name:"Vegi Lover Pizza",note:"Capsicum, Onion, Tomato, Olive, Jalapeno", p7:430, p10:850, p13:1300 },
+      { name:"Cheese Lover", note:"A lot of Cheese", p7:460, p10:880, p13:1400 },
+    ];
+    const crustPizzas = [
+      { name:"Kabab Crust Pizza",  p7:550, p10:1160, p13:1800 },
+      { name:"Cheese Crust Pizza", p7:550, p10:1160, p13:1850 },
+      { name:"Crown Crust",        p7:"—",  p10:1250, p13:2000 },
+    ];
+    const wraps = [
+      { name:"Atomic Wrap", price:"580/-" },
+      { name:"Signature Chipotle Wrap", price:"580/-" },
+      { name:"Signature Garlic Wrap", price:"580/-" },
+      { name:"Sriracha Wrap", price:"580/-" },
+      { name:"Turkish Wrap", price:"580/-" },
+      { name:"Chipotle Grill Wrap", price:"500/-" },
+      { name:"Mexican Grill Wrap", price:"500/-" },
+      { name:"Fried Chicken Wrap", price:"490/-" },
+      { name:"Afghani Sausage Wrap", price:"400/-" },
+    ];
+    const grillBurgers = [
+      { name:"Jalapeno Grilled Burger", price:"490/-" },
+      { name:"Chicken Steak Burger", price:"490/-" },
+      { name:"Espresso Grill Burger", price:"490/-" },
+      { name:"CDC Grill Burger", price:"500/-" },
+      { name:"Dual Steak With Cheese", price:"650/-" },
+    ];
+    const burgers = [
+      { name:"Zesty Zinger Burger", price:"450/-" },
+      { name:"Majestic Zinger Burger", price:"650/-" },
+      { name:"Zinger Burger", price:"380/-" },
+      { name:"Chicken Chapli Burger", price:"430/-" },
+      { name:"Chicken Patty Burger", price:"320/-" },
+      { name:"Tower Burger", price:"500/-" },
+      { name:"Heavy Zed Zinger", price:"600/-" },
+      { name:"Boston Burger", price:"320/-" },
+      { name:"Pizza Burger", price:"380/-" },
+    ];
+    const rolls = [
+      { name:"Zinger Roll", price:"380/-" },
+      { name:"Spicy Chicken Roll", price:"330/-" },
+      { name:"Garlic Mayo Roll", price:"360/-" },
+      { name:"Steak Roll", price:"470/-" },
+      { name:"Seekh Kabab Roll", price:"450/-" },
+      { name:"Chapli Kabab Roll", price:"450/-" },
+      { name:"Behari Cheese Rolls", price:"850/-" },
+    ];
+    const sandwiches = [
+      { name:"Chicken Sandwich", price:"290/-" },
+      { name:"Chicken Tikka Sandwich", price:"330/-" },
+      { name:"Jalapeno Chicken Sandwich", price:"350/-" },
+      { name:"Malai Chicken Sandwich", price:"350/-" },
+      { name:"Crunch Sandwich", price:"400/-" },
+      { name:"Chicken Club Sandwich", price:"450/-" },
+      { name:"Grilled Chicken Sandwich", price:"480/-" },
+    ];
+    const nuggets = [
+      { name:"Nuggets 4 Pcs", price:"220/-" },
+      { name:"Nuggets 6 Pcs", price:"310/-" },
+      { name:"Nuggets 12 Pcs", price:"600/-" },
+      { name:"Nuggets 20 Pcs", price:"950/-" },
+      { name:"Arabian Nuggets (S)", price:"350/-" },
+      { name:"Arabian Nuggets (L)", price:"650/-" },
+    ];
+    const wings = [
+      { name:"Fried Wings 5 Pcs", price:"350/-" },
+      { name:"Fried Wings 10 Pcs", price:"650/-" },
+      { name:"Saucy Baked Wings 5 Pcs", price:"390/-" },
+      { name:"Saucy Baked Wings 10 Pcs", price:"700/-" },
+    ];
+    const sidelines = [
+      { name:"Chicken Cheese Stick", price:"450/-" },
+      { name:"08 Pcs Chicken Broast", price:"2000/-" },
+      { name:"Chicken'N'Chips", price:"500/-" },
+      { name:"Fish'N'Chips", price:"750/-" },
+      { name:"Injected Chicken Broast", price:"310/-" },
+    ];
+    const addons = [
+      { name:"Sauce Dip (Garlic, Chipotle, Plan, Atomic)", price:"70/-" },
+      { name:"Extra Cheese", price:"70/-" },
+    ];
+
+    /* ── Build Functions ── */
+    function buildList(data, containerId) {
+      const ul = document.getElementById(containerId);
+      if (!ul) return;
+      data.forEach(item => {
+        const li = document.createElement('li');
+        li.innerHTML = `<span class="item-name">${item.name}${item.note ? `<span class="item-note">— ${item.note}</span>` : ''}</span><span class="item-dot"></span><span class="item-price">${item.price}</span>`;
+        li.onclick = () => showPreview(item.name, item.price, '', '', li);
+        ul.appendChild(li);
+      });
+    }
+
+    function buildPizzaRows(data, containerId, hasSizes=true) {
+      const wrap = document.getElementById(containerId);
+      if (!wrap) return;
+      data.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'pizza-sizes mb-8';
+        if (hasSizes) {
+          div.innerHTML = `<div>${item.name}${item.note ? `<br><span class="item-note">${item.note}</span>` : ''}</div><div>${item.p7}</div><div>${item.p10}</div><div>${item.p13}</div>`;
+        } else {
+          div.innerHTML = `<div>${item.name}</div><div>${item.p7}</div><div>${item.p10}</div><div>${item.p13}</div>`;
+        }
+        div.onclick = () => showPreview(item.name, `7": Rs.${item.p7} | 10": Rs.${item.p10} | 13": Rs.${item.p13}`, '', item.note||'', div);
+        wrap.appendChild(div);
+      });
+    }
+
+    /* ── Initialize Lists ── */
+    buildPizzaRows(specialPizzas, 'sp-pizzas');
+    buildPizzaRows(tradPizzas, 'tr-pizzas');
+    buildPizzaRows(crustPizzas, 'crust-pizzas', false);
+    buildList(wraps, 'wraps-list');
+    buildList(grillBurgers, 'grill-burgers-list');
+    buildList(burgers, 'burgers-list');
+    buildList(rolls, 'rolls-list');
+    buildList(sandwiches, 'sandwiches-list');
+    buildList(nuggets, 'nuggets-list');
+    buildList(wings, 'wings-list');
+    buildList(sidelines, 'sidelines-list');
+    buildList(addons, 'addons-list');
+
+    /* ── Tab Switch ── */
+    function switchPage(idx, btn) {
+      document.querySelectorAll('.menu-page').forEach((p,i) => p.classList.toggle('active', i===idx));
+      document.querySelectorAll('.menu-tab').forEach((t,i) => t.classList.toggle('active', i===idx));
+    }
+
+    /* ── Preview ── */
+    let activeCard = null;
+    function showPreview(name, price, imgSrc, desc, el) {
+      if (activeCard) activeCard.style.outline = '';
+      activeCard = el;
+      if (el) el.style.outline = '2px solid var(--gold)';
+
+      const info = document.getElementById('previewInfo');
+      const img = document.getElementById('previewImg');
+      const placeholder = document.getElementById('previewPlaceholder');
+      const addBtn = document.getElementById('previewAddBtn');
+
+      info.innerHTML = `
+        <div class="preview-name">${name}</div>
+        <div class="preview-price">${price}</div>
+        ${desc ? `<div class="preview-desc">${desc}</div>` : '<div class="preview-desc" style="color:rgba(255,255,255,.25);font-style:italic;">Add your description here</div>'}
+      `;
+
+      if (imgSrc) {
+        img.src = imgSrc;
+        img.style.opacity = '1';
+        placeholder.style.display = 'none';
+      } else {
+        img.style.opacity = '0';
+        placeholder.style.display = 'flex';
+      }
+
+      addBtn.classList.add('visible');
+    }
+
+    /* ── Close Modal (communicate with parent) ── */
+    function closeModalFromInside() {
+      if (window.parent) {
+        window.parent.postMessage('closeMenu', '*');
+      }
+    }
+  </script>
+</body>
+</html>
