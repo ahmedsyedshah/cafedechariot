@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' file: data:; style-src 'self' 'unsafe-inline'; script-src 'self';" />
+<title>CDC Menu Editor</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── Titlebar ── -->
+  <header class="titlebar">
+    <div class="titlebar-brand">
+      <span class="brand-mark">CDC</span>
+      <span class="brand-name">Menu Editor</span>
+    </div>
+    <div class="titlebar-file" id="fileLabel">No file open</div>
+    <div class="titlebar-actions">
+      <span class="dirty-pill" id="dirtyPill" hidden>Unsaved changes</span>
+      <button class="btn btn-ghost" id="changeFileBtn" title="Open a different menu-modal.html">Change File</button>
+      <button class="btn btn-ghost" id="reloadBtn" title="Reload from disk, discarding unsaved edits">Reload</button>
+      <button class="btn btn-gold" id="saveBtn" disabled>Save to menu-modal.html</button>
+    </div>
+  </header>
+
+  <!-- ── Empty / onboarding state ── -->
+  <section class="onboard" id="onboard" hidden>
+    <div class="onboard-card">
+      <div class="onboard-title">Locate your menu file</div>
+      <p class="onboard-copy">
+        Point the editor at <code>menu-modal.html</code>. It'll remember the location
+        and auto-load it every time you open the app.
+      </p>
+      <button class="btn btn-gold" id="onboardPickBtn">Choose menu-modal.html…</button>
+      <p class="onboard-error" id="onboardError" hidden></p>
+    </div>
+  </section>
+
+  <!-- ── Main workspace ── -->
+  <main class="workspace" id="workspace" hidden>
+
+    <!-- Left: search + tree -->
+    <aside class="tree-pane">
+      <div class="search-wrap">
+        <input type="text" id="searchInput" placeholder="Search items…" autocomplete="off" />
+        <span class="search-count" id="searchCount"></span>
+      </div>
+      <div class="tree" id="tree"></div>
+    </aside>
+
+    <!-- Right: edit form -->
+    <section class="edit-pane" id="editPane">
+      <div class="empty-state" id="emptyState">
+        <div class="empty-state-icon">🍽️</div>
+        <p>Select an item on the left to edit its name, price, description and image.</p>
+      </div>
+
+      <form class="edit-form" id="editForm" hidden>
+        <div class="edit-meta">
+          <span class="meta-badge" id="metaSection">Section</span>
+          <span class="meta-badge meta-kind" id="metaKind">kind</span>
+        </div>
+
+        <label class="field">
+          <span class="field-label">Item name</span>
+          <input type="text" id="fieldName" />
+        </label>
+
+        <div class="field-row" id="priceRow">
+          <label class="field">
+            <span class="field-label">Price</span>
+            <input type="text" id="fieldPrice" placeholder="e.g. Rs.500/-" />
+          </label>
+        </div>
+
+        <div class="field-row field-row-3" id="sizesRow" hidden>
+          <label class="field">
+            <span class="field-label">7" price</span>
+            <input type="text" id="fieldP7" />
+          </label>
+          <label class="field">
+            <span class="field-label">10" price</span>
+            <input type="text" id="fieldP10" />
+          </label>
+          <label class="field">
+            <span class="field-label">13" price</span>
+            <input type="text" id="fieldP13" />
+          </label>
+        </div>
+
+        <label class="field" id="descField">
+          <span class="field-label">Description</span>
+          <textarea id="fieldDesc" rows="3" placeholder="Shown in the menu preview panel"></textarea>
+        </label>
+
+        <label class="field" id="noteField" hidden>
+          <span class="field-label">Note</span>
+          <textarea id="fieldNote" rows="2" placeholder="Small line shown under the item name"></textarea>
+        </label>
+
+        <div class="field">
+          <span class="field-label">Image</span>
+          <div class="image-editor">
+            <div class="image-thumb" id="imageThumb">
+              <img id="imagePreviewImg" alt="" hidden />
+              <span id="imagePlaceholder">No image</span>
+            </div>
+            <div class="image-controls">
+              <button type="button" class="btn btn-ghost" id="chooseImageBtn">Choose Image…</button>
+              <button type="button" class="btn btn-ghost btn-danger" id="clearImageBtn">Remove</button>
+              <div class="image-path" id="imagePath"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="preview-card">
+          <div class="preview-card-label">Live preview — what customers will see</div>
+          <div class="preview-modal-mock" id="previewMock">
+            <div class="pm-img-wrap">
+              <img id="pmImg" alt="" hidden />
+              <span id="pmPlaceholder">Add your<br />image here</span>
+            </div>
+            <div class="pm-name" id="pmName">Item name</div>
+            <div class="pm-price" id="pmPrice">Price</div>
+            <div class="pm-desc" id="pmDesc">Description will appear here.</div>
+          </div>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

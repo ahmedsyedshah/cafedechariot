@@ -577,87 +577,13 @@
     .mb-12 { margin-bottom: 12px; }
     .mt-10 { margin-top: 10px; }
 
-    /* ── Preview panel: mobile bottom-sheet controls (hidden/off by default, JS + media query only apply below 680px) ── */
-    .preview-backdrop {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.55);
-      z-index: 40;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity .25s ease;
-    }
-    .preview-backdrop.open {
-      opacity: 1;
-      pointer-events: auto;
-    }
-    .preview-mobile-close {
-      display: none;
-      position: absolute;
-      top: 10px;
-      right: 12px;
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      border: none;
-      background: rgba(255,255,255,.08);
-      color: rgba(255,255,255,.7);
-      font-size: 14px;
-      line-height: 1;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      z-index: 2;
-    }
-    .preview-drag-handle {
-      display: none;
-      width: 36px;
-      height: 4px;
-      border-radius: 2px;
-      background: rgba(255,255,255,.25);
-      margin: 8px auto 0;
-      flex-shrink: 0;
-    }
-
     /* ── Responsive ── */
     @media (max-width: 680px) {
+      .preview-panel { display: none; }
       .two-col { grid-template-columns: 1fr; }
       .deals-grid { grid-template-columns: 1fr 1fr; }
       .menu-modal { border-radius: 0; border: none; }
       body { background: var(--dark); }
-
-      /* Turn the preview panel into a bottom sheet instead of hiding it,
-         so the image/description/Add to Order button stay reachable on mobile */
-      .preview-backdrop { display: block; }
-      .preview-drag-handle { display: block; }
-      .preview-mobile-close { display: flex; }
-
-      .preview-panel {
-        position: fixed;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        width: 100%;
-        max-height: 78vh;
-        border-left: none;
-        border-top: 1.5px solid var(--gold);
-        border-radius: 18px 18px 0 0;
-        box-shadow: 0 -10px 40px rgba(0,0,0,.6);
-        z-index: 50;
-        transform: translateY(100%);
-        transition: transform .32s cubic-bezier(.32,.72,0,1);
-      }
-      .preview-panel.open {
-        transform: translateY(0);
-      }
-      .preview-header {
-        position: relative;
-        padding: 6px 44px 10px 16px;
-      }
-      .preview-img-wrap { height: 140px; }
-      .preview-info { max-height: 32vh; }
-      .preview-add-btn { position: sticky; bottom: 0; }
     }
     @media (max-width: 480px) {
       .deals-grid { grid-template-columns: 1fr; }
@@ -750,7 +676,7 @@
                   <div class="deal-price">Rs.2950/-</div>
                   <div class="deal-items">1 Large Pizza<br>3 Zinger Burger<br>10 Fried Wings<br>1.5 Ltr Drink</div>
                 </div>
-                <div class="deal-card" onclick="showPreview('2 Zinger Burger, 2 Steak Burger, 10 Fried Wings, 1 Saucy Fries, 1.5 Ltr Drink','Rs.2600/-','images/2-zinger-burger-2-steak-burger-10-fried-wings-1-saucy-fries-1-5-ltr-drink.png','',this)">
+                <div class="deal-card" onclick="showPreview('2 Zinger Burger, 2 Steak Burger, 10 Fried Wings, 1 Saucy Fries, 1.5 Ltr Drink','Rs.2600/-','','',this)">
                   <div class="deal-price">Rs.2600/-</div>
                   <div class="deal-items">2 Zinger Burger<br>2 Steak Burger<br>10 Fried Wings<br>1 Saucy Fries<br>1.5 Ltr Drink</div>
                 </div>
@@ -927,13 +853,10 @@
       </div><!-- /menu-pages -->
 
       <!-- ── Preview Panel ── -->
-      <div class="preview-backdrop" id="previewBackdrop" onclick="closePreview()"></div>
-      <div class="preview-panel" id="previewPanel">
-        <div class="preview-drag-handle"></div>
+      <div class="preview-panel">
         <div class="preview-header">
           <h3>Item Preview</h3>
           <p>Click any item to preview</p>
-          <button class="preview-mobile-close" id="previewMobileClose" onclick="closePreview()" aria-label="Close preview">✕</button>
         </div>
         <div class="preview-img-wrap">
           <div class="preview-placeholder" id="previewPlaceholder">
@@ -1143,22 +1066,6 @@
       }
 
       addBtn.classList.add('visible');
-
-      /* On mobile the preview panel is a bottom sheet — slide it into view */
-      const panel = document.getElementById('previewPanel');
-      const backdrop = document.getElementById('previewBackdrop');
-      if (window.innerWidth <= 680) {
-        panel.classList.add('open');
-        backdrop.classList.add('open');
-      }
-    }
-
-    function closePreview() {
-      const panel = document.getElementById('previewPanel');
-      const backdrop = document.getElementById('previewBackdrop');
-      panel.classList.remove('open');
-      backdrop.classList.remove('open');
-      if (activeCard) { activeCard.style.outline = ''; activeCard = null; }
     }
 
     /* ── Close Modal (communicate with parent) ── */

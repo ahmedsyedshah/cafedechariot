@@ -1,0 +1,48 @@
+{
+  "name": "cdc-menu-editor",
+  "version": "1.0.0",
+  "description": "Desktop editor for Cafe De Chariot's menu-modal.html - edit items, prices and images and save straight back to the live file.",
+  "main": "main.js",
+  "author": "Cafe De Chariot",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder",
+    "dist:win": "electron-builder --win",
+    "dist:mac": "electron-builder --mac",
+    "dist:linux": "electron-builder --linux"
+  },
+  "devDependencies": {
+    "electron": "^31.0.0",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.cafedechariot.menueditor",
+    "productName": "CDC Menu Editor",
+    "files": [
+      "main.js",
+      "preload.js",
+      "parser.js",
+      "renderer/**/*"
+    ],
+    "directories": {
+      "output": "dist-installer"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "mac": {
+      "target": "dmg",
+      "category": "public.app-category.productivity"
+    },
+    "linux": {
+      "target": "AppImage",
+      "category": "Office"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}
