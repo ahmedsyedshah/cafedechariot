@@ -491,6 +491,18 @@
       padding: 14px 16px;
       flex: 1;
       overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: var(--gold) #1a1a1a;
+    }
+    .preview-info::-webkit-scrollbar {
+      width: 4px;
+    }
+    .preview-info::-webkit-scrollbar-track {
+      background: #111;
+    }
+    .preview-info::-webkit-scrollbar-thumb {
+      background: var(--gold);
+      border-radius: 2px;
     }
     .preview-name {
       font-family: 'Bebas Neue', cursive;
@@ -765,10 +777,10 @@
                 <div class="pasta-tag large"><span class="tag-label">Large</span>Rs.650/-</div>
               </div>
               <ul class="menu-list mb-12">
-                <li onclick="showPreview('Pizza Pasta','Rs.440 / Rs.650','','Classic pizza-style pasta with rich tomato sauce and mozzarella.',this)">
+                <li onclick="showPreview('Pizza Pasta','Rs.440 / Rs.650','images/pizza-pasta.png','Classic pizza-style pasta with rich tomato sauce and mozzarella.',this)">
                   <span class="item-name">Pizza Pasta</span>
                   <span class="item-dot"></span>
-                  <span class="item-price">440 / 650</span>
+                  <span class="item-price">Rs.440 / Rs.650</span>
                 </li>
                 <li onclick="showPreview('Hot Flaming Pasta','Rs.440 / Rs.650','','Fiery spiced pasta with a kick of chilli.',this)">
                   <span class="item-name">Hot Flaming Pasta</span>
@@ -1008,18 +1020,18 @@
       { name:"Jalapeno Grilled Burger", price:"490/-" },
       { name:"Chicken Steak Burger", price:"490/-" },
       { name:"Espresso Grill Burger", price:"490/-" },
-      { name:"CDC Grill Burger", price:"500/-" },
-      { name:"Dual Steak With Cheese", price:"650/-" },
+      { name: "CDC Grill Burger", price: "500/-", img: "images/cdc-grill-burger.png" },
+      { name: "Dual Steak With Cheese", price: "650/-", img: "images/dual-steak-with-cheese.png" },
     ];
     const burgers = [
       { name:"Zesty Zinger Burger", price:"450/-" },
-      { name:"Majestic Zinger Burger", price:"650/-" },
+      { name: "Majestic Zinger Burger", price: "650/-", img: "images/majestic-zinger-burger.png" },
       { name:"Zinger Burger", price:"380/-" },
       { name:"Chicken Chapli Burger", price:"430/-" },
       { name:"Chicken Patty Burger", price:"320/-" },
       { name:"Tower Burger", price:"500/-" },
       { name:"Heavy Zed Zinger", price:"600/-" },
-      { name:"Boston Burger", price:"320/-" },
+      { name: "Boston Burger", price: "320/-", img: "images/boston-burger.png" },
       { name:"Pizza Burger", price:"380/-" },
     ];
     const rolls = [

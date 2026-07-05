@@ -1734,9 +1734,1352 @@
       .book-form-row { grid-template-columns: 1fr; }
       .btn-reserve { padding: 15px 8px 15px 22px; }
     }
+
+    /* ══════════════════════════════════════════════════════════
+       MADE TO IMPRESS
+    ══════════════════════════════════════════════════════════ */
+    .impress-section {
+      background: transparent;
+      padding: 90px 60px 100px;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    .impress-section::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(245, 168, 0, .05), transparent 70%);
+      pointer-events: none;
+    }
+    .impress-head {
+      position: relative;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0 auto 14px;
+    }
+    .impress-head .section-badge { margin: 0 auto 18px; }
+    .impress-heading-row {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .impress-heading-row h2 {
+      font-family: 'Bebas Neue', cursive;
+      font-size: clamp(34px, 4.5vw, 56px);
+      letter-spacing: 1.5px;
+      line-height: 1;
+      color: var(--white);
+    }
+    .impress-heading-row h2 span { color: var(--gold); }
+    .plus-doodle {
+      width: 26px;
+      height: 26px;
+      color: var(--gold);
+      opacity: .85;
+      transform: translateY(-16px) rotate(0deg);
+      transition: transform .4s var(--ease);
+      flex-shrink: 0;
+    }
+    .impress-head:hover .plus-doodle { transform: translateY(-16px) rotate(90deg); }
+    .impress-sub {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(18px, 2vw, 24px);
+      font-weight: 600;
+      color: rgba(255, 255, 255, .55);
+      margin-top: 6px;
+    }
+    .impress-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+      max-width: 1180px;
+      margin: 54px auto 46px;
+    }
+    .impress-card {
+      background: #131313;
+      border: 1px solid rgba(245, 168, 0, .16);
+      border-radius: 18px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform .35s var(--ease), border-color .3s, box-shadow .3s;
+      position: relative;
+    }
+    .impress-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--gold);
+      box-shadow: 0 14px 34px rgba(0, 0, 0, .4), 0 0 26px rgba(245, 168, 0, .12);
+    }
+    .impress-card-media {
+      width: 100%;
+      aspect-ratio: 1/1;
+      background: #1a1a1a;
+      position: relative;
+      overflow: hidden;
+    }
+    .impress-card-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .5s var(--ease);
+    }
+    .impress-card:hover .impress-card-media img { transform: scale(1.07); }
+    .impress-card-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 6px;
+      color: rgba(255, 255, 255, .18);
+      font-size: 10.5px;
+      letter-spacing: 1px;
+      text-align: center;
+      padding: 10px;
+    }
+    .impress-card-icon {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(10, 10, 10, .65);
+      border: 1.5px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      backdrop-filter: blur(4px);
+      z-index: 2;
+    }
+    .impress-card-body {
+      padding: 22px 16px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .impress-card-body h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13.5px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: var(--white);
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+    .impress-card-body p {
+      font-size: 11px;
+      color: rgba(255, 255, 255, .45);
+    }
+    .impress-card-plus {
+      margin-top: 16px;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(245, 168, 0, .3);
+      transition: transform .3s var(--ease), background .25s, box-shadow .25s;
+    }
+    .impress-card:hover .impress-card-plus {
+      transform: rotate(90deg) scale(1.1);
+      background: var(--gold-dark);
+      box-shadow: 0 6px 20px rgba(245, 168, 0, .5);
+    }
+    .impress-explore-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      position: relative;
+    }
+    .impress-arrow-doodle {
+      width: 46px;
+      height: 30px;
+      color: rgba(245, 168, 0, .55);
+      transform: rotate(-4deg);
+    }
+    @media(max-width: 1100px) {
+      .impress-grid { grid-template-columns: repeat(2, 1fr); max-width: 620px; }
+    }
+    @media(max-width: 640px) {
+      .impress-section { padding: 60px 20px 70px; }
+      .impress-grid { grid-template-columns: 1fr 1fr; gap: 14px; margin: 42px auto 36px; }
+      .impress-card-body { padding: 18px 12px 26px; }
+      .impress-card-body h3 { font-size: 11.5px; }
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       POPULAR PICKS
+    ══════════════════════════════════════════════════════════ */
+    .popular-section {
+      background: transparent;
+      padding: 90px 60px 100px;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    .popular-section::before {
+      content: '';
+      position: absolute;
+      bottom: -120px;
+      left: -100px;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(245, 168, 0, .05), transparent 70%);
+      pointer-events: none;
+    }
+    .popular-head {
+      position: relative;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0 auto 34px;
+    }
+    .popular-head .section-badge { margin: 0 auto 18px; }
+    .popular-heading-row {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .popular-heading-row h2 {
+      font-family: 'Bebas Neue', cursive;
+      font-size: clamp(34px, 4.5vw, 56px);
+      letter-spacing: 1.5px;
+      line-height: 1;
+      color: var(--white);
+    }
+    .popular-heading-row h2 span { color: var(--gold); }
+    .fork-doodle {
+      width: 28px;
+      height: 28px;
+      color: var(--white);
+      opacity: .85;
+      transform: translateY(-14px) rotate(8deg);
+      transition: transform .3s var(--ease), color .3s;
+      flex-shrink: 0;
+    }
+    .popular-head:hover .fork-doodle { color: var(--gold); transform: translateY(-14px) rotate(-4deg) scale(1.08); }
+
+    .popular-tabs {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      max-width: 900px;
+      margin: 0 auto 40px;
+    }
+    .popular-tab {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .6px;
+      color: rgba(255, 255, 255, .6);
+      background: transparent;
+      border: 1.5px solid rgba(255, 255, 255, .18);
+      padding: 10px 22px;
+      border-radius: 30px;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: all .25s var(--ease);
+    }
+    .popular-tab:hover { border-color: var(--gold); color: var(--gold); }
+    .popular-tab.active {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: #000;
+    }
+
+    .popular-carousel-wrap {
+      position: relative;
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+    .popular-carousel {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(230px, 1fr);
+      gap: 20px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding: 6px 4px 20px;
+      text-align: left;
+      scrollbar-width: thin;
+      scrollbar-color: var(--gold) #1a1a1a;
+    }
+    .popular-carousel::-webkit-scrollbar { height: 5px; }
+    .popular-carousel::-webkit-scrollbar-track { background: #141414; border-radius: 3px; }
+    .popular-carousel::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+    .pick-card {
+      scroll-snap-align: start;
+      background: #131313;
+      border: 1px solid rgba(245, 168, 0, .16);
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+      transition: transform .3s var(--ease), border-color .3s, box-shadow .3s;
+      animation: pickFadeIn .35s var(--ease);
+    }
+    @keyframes pickFadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .pick-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--gold);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, .4), 0 0 22px rgba(245, 168, 0, .1);
+    }
+    .pick-card-media {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: #1a1a1a;
+      position: relative;
+      overflow: hidden;
+    }
+    .pick-card-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .5s var(--ease);
+    }
+    .pick-card:hover .pick-card-media img { transform: scale(1.08); }
+    .pick-card-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, .18);
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-align: center;
+      padding: 10px;
+    }
+    .pick-card-fav {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(10, 10, 10, .6);
+      border: 1px solid rgba(255, 255, 255, .2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, .7);
+      z-index: 2;
+      transition: color .2s, border-color .2s, transform .2s;
+    }
+    .pick-card-fav:hover, .pick-card-fav.active {
+      color: #ff5470;
+      border-color: #ff5470;
+      transform: scale(1.1);
+    }
+    .pick-card-fav.active svg { fill: #ff5470; }
+    .pick-card-body {
+      padding: 14px 14px 16px;
+    }
+    .pick-card-body h4 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+      line-height: 1.3;
+      min-height: 32px;
+    }
+    .pick-card-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .pick-card-price {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 17px;
+      letter-spacing: .5px;
+      color: var(--gold);
+    }
+    .pick-add-btn {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(245, 168, 0, .12);
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      padding: 6px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background .2s, color .2s, transform .15s;
+    }
+    .pick-add-btn:hover { background: var(--gold); color: #000; transform: scale(1.04); }
+    .pick-add-btn.added { background: var(--gold); color: #000; }
+
+    .popular-nav-btn {
+      position: absolute;
+      top: 40%;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(10, 10, 10, .7);
+      border: 1.5px solid rgba(245, 168, 0, .4);
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 3;
+      backdrop-filter: blur(4px);
+      transition: background .2s, border-color .2s, transform .2s;
+    }
+    .popular-nav-btn:hover { background: var(--gold); color: #000; border-color: var(--gold); }
+    .popular-nav-prev { left: -18px; }
+    .popular-nav-next { right: -18px; }
+    @media(max-width: 900px) {
+      .popular-nav-btn { display: none; }
+    }
+    @media(max-width: 640px) {
+      .popular-section { padding: 60px 20px 70px; }
+      .popular-carousel { grid-auto-columns: minmax(160px, 1fr); gap: 12px; }
+      .pick-card-body h4 { font-size: 11.5px; min-height: 28px; }
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       LOVED BY OUR PEOPLE — reviews
+    ══════════════════════════════════════════════════════════ */
+    .reviews-section {
+      background: transparent;
+      padding: 90px 60px 100px;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    .reviews-section::before {
+      content: '';
+      position: absolute;
+      top: -80px;
+      right: -80px;
+      width: 380px;
+      height: 380px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(245, 168, 0, .05), transparent 70%);
+      pointer-events: none;
+    }
+    .reviews-head {
+      position: relative;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0 auto 46px;
+    }
+    .reviews-head .section-badge { margin: 0 auto 18px; }
+    .reviews-heading-row {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .reviews-heading-row h2 {
+      font-family: 'Bebas Neue', cursive;
+      font-size: clamp(34px, 4.5vw, 56px);
+      letter-spacing: 1.5px;
+      line-height: 1;
+      color: var(--white);
+    }
+    .reviews-heading-row h2 span { color: var(--gold); }
+    .heart-doodle {
+      width: 26px;
+      height: 26px;
+      color: #ff5470;
+      opacity: .9;
+      transform: translateY(-16px) rotate(-6deg);
+      transition: transform .3s var(--ease);
+      flex-shrink: 0;
+    }
+    .reviews-head:hover .heart-doodle { transform: translateY(-16px) rotate(6deg) scale(1.1); }
+
+    .reviews-track {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(280px, 1fr);
+      gap: 22px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      max-width: 1180px;
+      margin: 0 auto 30px;
+      padding: 4px 4px 10px;
+      text-align: left;
+      scrollbar-width: none;
+    }
+    .reviews-track::-webkit-scrollbar { display: none; }
+    @media(min-width: 901px) {
+      .reviews-track { grid-auto-flow: row; grid-template-columns: repeat(3, 1fr); overflow: visible; }
+    }
+    .review-card {
+      scroll-snap-align: start;
+      background: #131313;
+      border: 1px solid rgba(245, 168, 0, .16);
+      border-radius: 16px;
+      padding: 26px 24px 22px;
+      position: relative;
+      transition: transform .3s var(--ease), border-color .3s, box-shadow .3s;
+    }
+    .review-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--gold);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, .4), 0 0 22px rgba(245, 168, 0, .1);
+    }
+    .review-quote-mark {
+      position: absolute;
+      top: 16px;
+      right: 20px;
+      font-family: 'Bebas Neue', cursive;
+      font-size: 46px;
+      color: rgba(245, 168, 0, .14);
+      line-height: 1;
+    }
+    .review-stars {
+      display: flex;
+      gap: 3px;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+    .review-text {
+      font-size: 13px;
+      color: rgba(255, 255, 255, .8);
+      line-height: 1.65;
+      margin-bottom: 22px;
+      min-height: 66px;
+    }
+    .review-person {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .review-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Bebas Neue', cursive;
+      font-size: 16px;
+      color: #000;
+      flex-shrink: 0;
+    }
+    .review-name {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--white);
+    }
+    .review-name span {
+      display: block;
+      font-size: 10px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, .4);
+      margin-top: 1px;
+    }
+    .reviews-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+    }
+    .reviews-nav-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: transparent;
+      border: 1.5px solid rgba(245, 168, 0, .4);
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background .2s, color .2s;
+    }
+    .reviews-nav-btn:hover { background: var(--gold); color: #000; }
+    .reviews-dots { display: flex; gap: 7px; }
+    .reviews-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .25);
+      cursor: pointer;
+      transition: background .2s, transform .2s;
+    }
+    .reviews-dot.active { background: var(--gold); transform: scale(1.3); }
+    @media(max-width: 640px) {
+      .reviews-section { padding: 60px 20px 70px; }
+      .reviews-track { grid-auto-columns: minmax(240px, 88%); }
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       CREATE YOUR PERFECT COMBO
+    ══════════════════════════════════════════════════════════ */
+    .combo-section {
+      background: transparent;
+      padding: 90px 60px 100px;
+      position: relative;
+      overflow: hidden;
+    }
+    .combo-section::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 500px;
+      height: 300px;
+      background: radial-gradient(ellipse, rgba(245, 168, 0, .06), transparent 70%);
+      pointer-events: none;
+    }
+    .combo-head {
+      text-align: center;
+      margin: 0 auto 54px;
+      position: relative;
+    }
+    .combo-head .section-badge { margin: 0 auto 18px; }
+    .combo-head h2 {
+      font-family: 'Bebas Neue', cursive;
+      font-size: clamp(34px, 4.5vw, 56px);
+      letter-spacing: 1.5px;
+      line-height: 1;
+      color: var(--white);
+    }
+    .combo-head h2 span { color: var(--gold); }
+
+    .combo-layout {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 36px;
+      max-width: 1180px;
+      margin: 0 auto;
+      align-items: start;
+    }
+    .combo-steps {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: #131313;
+      border: 1px solid rgba(245, 168, 0, .16);
+      border-radius: 18px;
+      padding: 30px 24px;
+    }
+    .combo-step {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 8px;
+    }
+    .combo-step-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: rgba(245, 168, 0, .08);
+      border: 1.5px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      margin-bottom: 4px;
+      transition: transform .3s var(--ease), box-shadow .3s;
+    }
+    .combo-step:hover .combo-step-icon {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 22px rgba(245, 168, 0, .2);
+    }
+    .combo-step h4 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12.5px;
+      font-weight: 700;
+      letter-spacing: .5px;
+      color: var(--white);
+      text-transform: uppercase;
+    }
+    .combo-step p {
+      font-size: 10.5px;
+      color: rgba(255, 255, 255, .4);
+      margin-bottom: 4px;
+    }
+    .combo-select-wrap {
+      position: relative;
+      width: 100%;
+    }
+    .combo-select-wrap::after {
+      content: '';
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      width: 8px;
+      height: 8px;
+      border-right: 1.5px solid var(--gold);
+      border-bottom: 1.5px solid var(--gold);
+      transform: translateY(-70%) rotate(45deg);
+      pointer-events: none;
+    }
+    .combo-select {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 100%;
+      background: #1a1a1a;
+      border: 1px solid rgba(245, 168, 0, .3);
+      color: var(--white);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 10px 30px 10px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: border-color .2s;
+    }
+    .combo-select:hover, .combo-select:focus { border-color: var(--gold); outline: none; }
+    .combo-plus-sep {
+      color: rgba(245, 168, 0, .5);
+      font-family: 'Bebas Neue', cursive;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    .combo-receipt {
+      background: #131313;
+      border: 1.5px solid var(--gold);
+      border-radius: 18px;
+      padding: 24px 22px 22px;
+      position: relative;
+      box-shadow: 0 14px 36px rgba(0, 0, 0, .4), 0 0 24px rgba(245, 168, 0, .08);
+    }
+    .combo-receipt-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--white);
+      text-transform: uppercase;
+      padding-bottom: 16px;
+      border-bottom: 1px dashed rgba(245, 168, 0, .3);
+      margin-bottom: 14px;
+    }
+    .combo-receipt-head svg { color: var(--gold); flex-shrink: 0; }
+    .combo-receipt-lines {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 16px;
+      min-height: 60px;
+    }
+    .combo-line {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11.5px;
+      animation: pickFadeIn .3s var(--ease);
+    }
+    .combo-line-name { color: rgba(255, 255, 255, .75); }
+    .combo-line-qty { color: rgba(255, 255, 255, .35); margin-left: 4px; }
+    .combo-line-price { color: rgba(255, 255, 255, .55); flex-shrink: 0; }
+    .combo-receipt-total {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 14px;
+      border-top: 1px dashed rgba(245, 168, 0, .3);
+      margin-bottom: 18px;
+    }
+    .combo-receipt-total span:first-child {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--white);
+    }
+    .combo-receipt-total span:last-child {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 24px;
+      color: var(--gold);
+    }
+    .combo-add-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      background: var(--gold);
+      color: #000;
+      border: none;
+      border-radius: 30px;
+      padding: 14px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12.5px;
+      font-weight: 700;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background .2s, transform .15s;
+    }
+    .combo-add-btn:hover { background: var(--gold-dark); transform: translateY(-2px); }
+    .combo-add-btn.added { background: #2ecc71; }
+    .combo-view-cart {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+      background: transparent;
+      border: none;
+      color: rgba(255, 255, 255, .5);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 12px 0 0;
+      cursor: pointer;
+      transition: color .2s;
+    }
+    .combo-view-cart:hover { color: var(--gold); }
+
+    @media(max-width: 900px) {
+      .combo-layout { grid-template-columns: 1fr; }
+      .combo-steps { flex-direction: column; }
+      .combo-plus-sep { transform: rotate(90deg); }
+    }
+    @media(max-width: 640px) {
+      .combo-section { padding: 60px 20px 70px; }
+      .combo-steps { padding: 22px 16px; }
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       WHY CAFE DE CHARIOT
+    ══════════════════════════════════════════════════════════ */
+    .why-section {
+      background: transparent;
+      padding: 90px 60px 100px;
+      text-align: center;
+      position: relative;
+    }
+    .why-head {
+      margin: 0 auto 54px;
+    }
+    .why-head .section-badge { margin: 0 auto 18px; }
+    .why-head h2 {
+      font-family: 'Bebas Neue', cursive;
+      font-size: clamp(34px, 4.5vw, 56px);
+      letter-spacing: 1.5px;
+      line-height: 1;
+      color: var(--white);
+    }
+    .why-head h2 span { color: var(--gold); }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 34px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .why-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: transform .3s var(--ease);
+    }
+    .why-card:hover { transform: translateY(-6px); }
+    .why-icon {
+      width: 66px;
+      height: 66px;
+      border-radius: 50%;
+      background: rgba(245, 168, 0, .06);
+      border: 1.5px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      margin-bottom: 18px;
+      transition: box-shadow .3s, background .3s;
+    }
+    .why-card:hover .why-icon {
+      background: rgba(245, 168, 0, .14);
+      box-shadow: 0 0 26px rgba(245, 168, 0, .3);
+    }
+    .why-card h4 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13.5px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--white);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .why-card p {
+      font-size: 11.5px;
+      color: rgba(255, 255, 255, .45);
+      line-height: 1.6;
+    }
+    @media(max-width: 900px) {
+      .why-grid { grid-template-columns: repeat(2, 1fr); gap: 40px 24px; }
+    }
+    @media(max-width: 640px) {
+      .why-section { padding: 60px 20px 70px; }
+      .why-grid { gap: 34px 18px; }
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       QUICK VIEW PREVIEW — desktop: centered card · mobile: bottom sheet
+       (mirrors the menu-modal's mobile preview-panel behaviour)
+    ══════════════════════════════════════════════════════════ */
+    .pick-preview-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .65);
+      backdrop-filter: blur(6px);
+      z-index: 8500;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s ease;
+    }
+    .pick-preview-backdrop.open { opacity: 1; pointer-events: auto; }
+
+    .pick-preview-panel {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: min(640px, 92vw);
+      max-height: 84vh;
+      background: var(--dark, #111);
+      border: 1.5px solid var(--gold);
+      border-radius: 20px;
+      box-shadow: 0 0 60px rgba(245, 168, 0, .15), 0 30px 80px rgba(0, 0, 0, .7);
+      z-index: 8600;
+      display: flex;
+      overflow: hidden;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, -50%) scale(.94);
+      transition: opacity .3s var(--ease), transform .3s var(--ease);
+    }
+    .pick-preview-panel.open {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    .pick-preview-media {
+      width: 46%;
+      flex-shrink: 0;
+      position: relative;
+      background: #1a1a1a;
+      overflow: hidden;
+    }
+    .pick-preview-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      transition: opacity .3s;
+    }
+    .pick-preview-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 8px;
+      color: rgba(255, 255, 255, .2);
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-align: center;
+      padding: 20px;
+    }
+    .pick-preview-body {
+      flex: 1;
+      padding: 30px 28px;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+    .pick-preview-category {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .pick-preview-name {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 30px;
+      letter-spacing: 1px;
+      color: var(--white);
+      line-height: 1.05;
+      margin-bottom: 10px;
+    }
+    .pick-preview-price {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 24px;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .pick-preview-desc {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12.5px;
+      color: rgba(255, 255, 255, .6);
+      line-height: 1.75;
+      flex: 1;
+    }
+    .pick-preview-addbtn {
+      margin-top: 22px;
+      align-self: flex-start;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      background: var(--gold);
+      color: #000;
+      border: none;
+      border-radius: 30px;
+      padding: 13px 26px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background .2s, transform .15s;
+    }
+    .pick-preview-addbtn:hover { background: var(--gold-dark); transform: translateY(-2px); }
+    .pick-preview-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, .55);
+      border: 1px solid rgba(255, 255, 255, .25);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 3;
+      transition: background .2s, transform .25s, border-color .2s;
+    }
+    .pick-preview-close:hover { background: var(--gold); color: #000; border-color: var(--gold); transform: rotate(90deg); }
+    .pick-preview-drag {
+      display: none;
+      width: 36px;
+      height: 4px;
+      border-radius: 2px;
+      background: rgba(255, 255, 255, .25);
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+    }
+
+    @media(max-width: 680px) {
+      .pick-preview-panel {
+        top: auto;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        max-height: 82vh;
+        border-radius: 20px 20px 0 0;
+        border-left: none;
+        border-right: none;
+        border-bottom: none;
+        flex-direction: column;
+        transform: translate(0, 100%);
+      }
+      .pick-preview-panel.open { transform: translate(0, 0); }
+      .pick-preview-media { width: 100%; aspect-ratio: 16/9; }
+      .pick-preview-drag { display: block; }
+      .pick-preview-body { padding: 22px 20px 26px; }
+      .pick-preview-name { font-size: 24px; }
+      .pick-preview-addbtn { align-self: stretch; justify-content: center; position: sticky; bottom: 0; }
+    }
+    /* ══ AMBIENT BACKGROUND DOODLES ══ */
+    .section-doodles {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .bg-doodle {
+      position: absolute;
+      top: var(--top);
+      left: var(--left);
+      width: var(--size);
+      height: var(--size);
+      color: var(--gold);
+      stroke: currentColor;
+      fill: none;
+      opacity: var(--op, .2);
+      transform: rotate(var(--rot, 0deg));
+      transform-origin: center;
+      animation: bgDoodleFloat var(--dur, 7s) ease-in-out infinite;
+      animation-delay: var(--delay, 0s);
+      filter: drop-shadow(0 0 5px rgba(245, 168, 0, .12));
+      will-change: transform, opacity;
+    }
+    .bg-doodle.bg-doodle-w { color: var(--white); filter: drop-shadow(0 0 4px rgba(255,255,255,.10)); }
+    .bg-doodle.bg-doodle-twinkle { animation-name: bgDoodleTwinkle; }
+    @keyframes bgDoodleFloat {
+      0%, 100% { transform: translateY(0) rotate(var(--rot, 0deg)); opacity: var(--op, .2); }
+      50% { transform: translateY(-14px) rotate(calc(var(--rot, 0deg) + 6deg)); opacity: calc(var(--op, .2) + .08); }
+    }
+    @keyframes bgDoodleTwinkle {
+      0%, 100% { transform: translateY(0) rotate(var(--rot, 0deg)) scale(1); opacity: var(--op, .2); }
+      50% { transform: translateY(-8px) rotate(calc(var(--rot, 0deg) - 8deg)) scale(1.12); opacity: calc(var(--op, .2) + .18); }
+    }
+    @media (max-width: 640px) {
+      .bg-doodle { transform: rotate(var(--rot, 0deg)) scale(.75); }
+    }
+
+    /* ══ FOOTER ══ */
+    .site-footer {
+      background: #0a0a0a;
+      border-top: 1px solid rgba(245, 168, 0, .1);
+      padding: 70px 60px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.3fr .8fr .8fr 1.1fr;
+      gap: 40px;
+      padding-bottom: 46px;
+    }
+    .footer-brand-logo {
+      display: inline-flex;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+    .footer-brand-logo img {
+      height: 80px;
+      width: auto;
+      display: block;
+    }
+    .footer-tagline {
+      font-size: 13.5px;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, .5);
+      max-width: 230px;
+      margin-bottom: 20px;
+    }
+    .footer-socials {
+      display: flex;
+      gap: 10px;
+    }
+    .footer-socials .social-btn {
+      width: 34px;
+      height: 34px;
+      background: rgba(255, 255, 255, .03);
+    }
+    .footer-col h4 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 15px;
+      letter-spacing: 1.2px;
+      color: var(--gold);
+      margin-bottom: 18px;
+      font-weight: 400;
+    }
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .footer-col ul a {
+      font-size: 13.5px;
+      color: rgba(255, 255, 255, .58);
+      text-decoration: none;
+      transition: color .2s, padding-left .2s;
+    }
+    .footer-col ul a:hover {
+      color: var(--gold);
+      padding-left: 3px;
+    }
+    .footer-contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13.5px;
+      color: rgba(255, 255, 255, .58);
+      margin-bottom: 14px;
+      line-height: 1.5;
+    }
+    .footer-contact-item svg {
+      flex-shrink: 0;
+      color: var(--gold);
+      margin-top: 1px;
+    }
+    .footer-contact-item a {
+      color: inherit;
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .footer-contact-item a:hover { color: var(--gold); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, .08);
+      padding: 20px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 12.5px;
+      color: rgba(255, 255, 255, .42);
+    }
+    .footer-bottom .footer-heart {
+      color: #e2455e;
+      display: inline-flex;
+      transform: translateY(1px);
+    }
+    @media(max-width: 1100px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; row-gap: 40px; }
+      .footer-brand { grid-column: 1 / -1; }
+    }
+    @media(max-width: 640px) {
+      .site-footer { padding: 50px 24px 0; text-align: center; }
+      .footer-grid { grid-template-columns: 1fr; gap: 34px; padding-bottom: 34px; }
+      .footer-brand-logo { justify-content: center; width: 100%; }
+      .footer-tagline { max-width: none; margin-left: auto; margin-right: auto; }
+      .footer-socials { justify-content: center; }
+      .footer-contact-item { justify-content: center; text-align: left; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+
+    /* keep real content above the ambient doodle layer */
+    .gallery-head, .gallery-grid, .btn-view-more,
+    .impress-head, .impress-grid,
+    .popular-head, .popular-tabs, .popular-carousel,
+    .reviews-head, .reviews-track, .reviews-dots,
+    .combo-head, .combo-layout,
+    .why-head, .why-grid,
+    .reveal-left, .book-map, .book-info {
+      position: relative;
+      z-index: 1;
+    }
   </style>
 </head>
 <body>
+  <!-- ══ AMBIENT DOODLE ICON LIBRARY (hand-drawn line art, reused via <use>) ══ -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="dd-burger" viewBox="0 0 48 48">
+        <path d="M6 20c0-7 8-12 18-12s18 5 18 12" stroke-width="2.2" stroke-linecap="round"/>
+        <path d="M6 22h36c1 0 2 1 2 2 0 2-2 3-4 3H8c-2 0-4-1-4-3 0-1 1-2 2-2z" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M8 27c2 6 6 9 16 9s14-3 16-9" stroke-width="2.2" stroke-linecap="round"/>
+        <path d="M12 20c1-2 3-2 4 0M22 19c1-2 3-2 4 0M32 20c1-2 3-2 4 0" stroke-width="1.8" stroke-linecap="round"/>
+      </symbol>
+      <symbol id="dd-drink" viewBox="0 0 48 48">
+        <path d="M14 8h20l-8 16v16" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M16 40h16" stroke-width="2.2" stroke-linecap="round"/>
+        <path d="M15 11h18" stroke-width="2" stroke-linecap="round"/>
+        <path d="M20 24l3 3" stroke-width="1.8" stroke-linecap="round"/>
+      </symbol>
+      <symbol id="dd-croissant" viewBox="0 0 48 48">
+        <path d="M6 30c2-10 10-19 21-20 6-1 12 2 15 6-4-1-8 0-10 3 4 0 7 2 9 5-4-1-7 0-9 3 3 1 5 3 6 6-8-2-16 0-22 5-4-3-8-4-10-8z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </symbol>
+      <symbol id="dd-star" viewBox="0 0 48 48">
+        <path d="M24 4l4 14 14 2-11 9 4 15-11-8-11 8 4-15-11-9 14-2z" stroke-width="2" stroke-linejoin="round"/>
+      </symbol>
+      <symbol id="dd-heart" viewBox="0 0 48 48">
+        <path d="M24 40C10 30 4 22 4 15c0-6 5-10 10-10 5 0 8 3 10 7 2-4 5-7 10-7 5 0 10 4 10 10 0 7-6 15-20 25z" stroke-width="2.2" stroke-linejoin="round"/>
+      </symbol>
+      <symbol id="dd-popcorn" viewBox="0 0 48 48">
+        <path d="M12 18h24l-3 22c0 2-2 3-4 3H19c-2 0-4-1-4-3z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M14 18c-2-4 0-8 4-8 1-4 6-5 8-2 3-3 8-1 8 3 4 0 5 5 2 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M20 22v16M28 22v16" stroke-width="1.6" stroke-linecap="round"/>
+      </symbol>
+      <symbol id="dd-bacon" viewBox="0 0 48 48">
+        <path d="M6 14c8-4 10 4 18 1s10-8 18-4c3 5-2 8-6 8 4 2 6 6 4 10-8 4-10-4-18-1s-10 8-18 4c-3-5 2-8 6-8-4-2-6-6-4-10z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </symbol>
+      <symbol id="dd-sushi" viewBox="0 0 48 48">
+        <path d="M6 30a18 6 0 0036 0" stroke-width="2.2" stroke-linecap="round"/>
+        <path d="M6 30V20a18 6 0 0136 0v10" stroke-width="2.2" stroke-linecap="round"/>
+        <ellipse cx="24" cy="20" rx="7" ry="3" stroke-width="1.8"/>
+      </symbol>
+      <symbol id="dd-lemon" viewBox="0 0 48 48">
+        <path d="M24 6a18 18 0 100 36 18 18 0 000-36z" stroke-width="2.2"/>
+        <path d="M24 10v28M14 14l20 20M34 14L14 34" stroke-width="1.4" stroke-linecap="round"/>
+      </symbol>
+      <symbol id="dd-jar" viewBox="0 0 48 48">
+        <path d="M16 10h16v6H16z" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M14 16h20v22c0 3-2 5-5 5H19c-3 0-5-2-5-5z" stroke-width="2.2" stroke-linejoin="round"/>
+        <circle cx="21" cy="26" r="1.6" fill="currentColor" stroke="none"/>
+        <circle cx="27" cy="31" r="1.6" fill="currentColor" stroke="none"/>
+        <circle cx="22" cy="35" r="1.6" fill="currentColor" stroke="none"/>
+      </symbol>
+      <symbol id="dd-mug" viewBox="0 0 48 48">
+        <path d="M10 16h20v16a8 8 0 01-8 8h-4a8 8 0 01-8-8z" stroke-width="2.2" stroke-linejoin="round"/>
+        <path d="M30 20h4a5 5 0 010 10h-4" stroke-width="2.2"/>
+        <path d="M16 8c0 2 2 2 2 4s-2 2-2 4M22 8c0 2 2 2 2 4s-2 2-2 4" stroke-width="1.6" stroke-linecap="round"/>
+      </symbol>
+      <symbol id="dd-cherry" viewBox="0 0 48 48">
+        <path d="M20 22c0-8 2-14 8-18M20 22c4-6 10-9 16-8" stroke-width="1.8" stroke-linecap="round"/>
+        <circle cx="16" cy="30" r="8" stroke-width="2.2"/>
+        <circle cx="32" cy="26" r="7" stroke-width="2.2"/>
+      </symbol>
+      <symbol id="dd-donut" viewBox="0 0 48 48">
+        <circle cx="24" cy="24" r="17" stroke-width="2.2"/>
+        <circle cx="24" cy="24" r="6" stroke-width="2"/>
+        <path d="M14 15c1 1 1 2 0 3M24 10c1 1 1 2 0 3M34 15c1 1 1 2 0 3" stroke-width="1.6" stroke-linecap="round"/>
+      </symbol>
+      <symbol id="dd-pretzel" viewBox="0 0 48 48">
+        <path d="M10 14c0-6 20-8 20 0 0 6-16 10-16 18 0 5 5 8 10 8s9-3 10-8" stroke-width="2.2" stroke-linecap="round"/>
+      </symbol>
+      <symbol id="dd-swirl" viewBox="0 0 48 48">
+        <path d="M8 30c0-12 8-20 18-20s14 8 12 16-10 10-14 5 1-11 8-10" stroke-width="2" stroke-linecap="round"/>
+      </symbol>
+      <symbol id="dd-sparkle" viewBox="0 0 48 48">
+        <path d="M24 6v10M24 32v10M6 24h10M32 24h10" stroke-width="2.4" stroke-linecap="round"/>
+      </symbol>
+      <symbol id="dd-fries" viewBox="0 0 48 48">
+        <path d="M12 20l1 20h22l1-20z" stroke-width="2.2" stroke-linejoin="round"/>
+        <path d="M12 20l-2-2 3-2 1 2M20 20v-8M24 20v-10M28 20v-8M36 20l2-2-3-2-1 2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </symbol>
+    </defs>
+  </svg>
 
   <!-- progress bar -->
   <div class="scroll-progress" id="scrollProgress"></div>
@@ -1903,6 +3246,16 @@
 
   <!-- ═══ GALLERY — MOMENTS THAT MATTER ═══ -->
   <section class="gallery-section">
+    <div class="section-doodles" aria-hidden="true">
+      <svg class="bg-doodle bg-doodle-twinkle" style="--top:88%;--left:26%;--size:50px;--rot:-12deg;--op:0.22;--dur:6.9s;--delay:0.7s"><use href="#dd-star"/></svg>
+      <svg class="bg-doodle" style="--top:81%;--left:90%;--size:29px;--rot:0deg;--op:0.24;--dur:7.9s;--delay:3.6s"><use href="#dd-burger"/></svg>
+      <svg class="bg-doodle" style="--top:94%;--left:47%;--size:38px;--rot:-17deg;--op:0.2;--dur:8.8s;--delay:2.8s"><use href="#dd-cherry"/></svg>
+      <svg class="bg-doodle" style="--top:13%;--left:2%;--size:27px;--rot:20deg;--op:0.15;--dur:6.7s;--delay:0.4s"><use href="#dd-heart"/></svg>
+      <svg class="bg-doodle bg-doodle-w" style="--top:42%;--left:94%;--size:34px;--rot:7deg;--op:0.21;--dur:7.0s;--delay:1.7s"><use href="#dd-fries"/></svg>
+      <svg class="bg-doodle" style="--top:70%;--left:3%;--size:45px;--rot:18deg;--op:0.14;--dur:8.4s;--delay:0.7s"><use href="#dd-donut"/></svg>
+      <svg class="bg-doodle bg-doodle-w" style="--top:84%;--left:9%;--size:47px;--rot:-2deg;--op:0.24;--dur:8.6s;--delay:1.0s"><use href="#dd-croissant"/></svg>
+      <svg class="bg-doodle" style="--top:73%;--left:92%;--size:34px;--rot:-18deg;--op:0.15;--dur:9.3s;--delay:3.9s"><use href="#dd-drink"/></svg>
+    </div>
     <div class="gallery-head">
       <span class="section-badge reveal">Our Gallery</span>
       <div class="gallery-heading-row reveal" style="transition-delay:.08s">
@@ -1975,8 +3328,417 @@
   </div>
   <!-- /doodle-track -->
 
-  <!-- ═══ BOOK YOUR TABLE ═══ -->
+  <!-- ═══ MADE TO IMPRESS — signature categories ═══ -->
+  <section class="impress-section">
+    <div class="section-doodles" aria-hidden="true">
+      <svg class="bg-doodle" style="--top:2%;--left:20%;--size:46px;--rot:-12deg;--op:0.23;--dur:7.2s;--delay:0.3s"><use href="#dd-sparkle"/></svg>
+      <svg class="bg-doodle" style="--top:76%;--left:90%;--size:43px;--rot:-22deg;--op:0.22;--dur:6.0s;--delay:4.0s"><use href="#dd-donut"/></svg>
+      <svg class="bg-doodle" style="--top:89%;--left:27%;--size:35px;--rot:5deg;--op:0.14;--dur:5.5s;--delay:3.2s"><use href="#dd-swirl"/></svg>
+      <svg class="bg-doodle" style="--top:22%;--left:90%;--size:42px;--rot:-16deg;--op:0.24;--dur:6.7s;--delay:2.9s"><use href="#dd-mug"/></svg>
+      <svg class="bg-doodle bg-doodle-w" style="--top:68%;--left:7%;--size:50px;--rot:-12deg;--op:0.2;--dur:8.6s;--delay:2.4s"><use href="#dd-sushi"/></svg>
+      <svg class="bg-doodle" style="--top:85%;--left:91%;--size:26px;--rot:-15deg;--op:0.25;--dur:9.0s;--delay:3.7s"><use href="#dd-croissant"/></svg>
+      <svg class="bg-doodle" style="--top:86%;--left:49%;--size:44px;--rot:-17deg;--op:0.13;--dur:7.4s;--delay:0.3s"><use href="#dd-heart"/></svg>
+    </div>
+    <div class="impress-head reveal">
+      <span class="section-badge">Our Signatures</span>
+      <div class="impress-heading-row">
+        <h2>MADE TO <span>IMPRESS</span></h2>
+        <svg class="plus-doodle" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+          <path d="M16 6v20M6 16h20"/>
+        </svg>
+      </div>
+      <p class="impress-sub">Crafted with passion</p>
+    </div>
+
+    <div class="impress-grid">
+      <div class="impress-card reveal" style="transition-delay:.04s" onclick="openMenu()">
+        <div class="impress-card-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 10h16M3 14h18a1 1 0 011 1c0 2.8-2.2 5-5 5H7c-2.8 0-5-2.2-5-5a1 1 0 011-1zM6 10a6 6 0 0112 0"/>
+          </svg>
+        </div>
+        <div class="impress-card-media">
+          <!-- image: loaded burger, close-up -->
+        <div class="impress-card-image">
+            <img src="images/loaded-burgers.jpg" alt="Loaded Burgers">
+        </div>
+        </div>
+        <div class="impress-card-body">
+          <h3>Loaded Burgers</h3>
+          <p>Rich, Juicy, Loaded.</p>
+          <span class="impress-card-plus">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </span>
+        </div>
+      </div>
+
+      <div class="impress-card reveal" style="transition-delay:.09s" onclick="openMenu()">
+        <div class="impress-card-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2c-1.5 3-4 4-4 7.5A4 4 0 0012 14a4 4 0 004-4.5C16 6 13.5 5 12 2z"/><path d="M12 14v8"/>
+          </svg>
+        </div>
+        <div class="impress-card-media">
+          <!-- image: saucy chicken wings -->
+        <div class="impress-card-image">
+            <img src="images/signature-wings.jpg" alt="Loaded Burgers">
+        </div>
+        </div>
+        <div class="impress-card-body">
+          <h3>Signature Wings</h3>
+          <p>Crispy, Spicy, Perfect.</p>
+          <span class="impress-card-plus">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </span>
+        </div>
+      </div>
+
+      <div class="impress-card reveal" style="transition-delay:.14s" onclick="openMenu()">
+        <div class="impress-card-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 12a8 8 0 0116 0"/><path d="M3 12h18l-1.5 7a2 2 0 01-2 1.5H6.5a2 2 0 01-2-1.5L3 12z"/>
+          </svg>
+        </div>
+        <div class="impress-card-media">
+          <!-- image: creamy pasta bowl -->
+        <div class="impress-card-image">
+            <img src="images/creamy-pasta.jpg" alt="Loaded Burgers">
+        </div>
+        </div>
+        <div class="impress-card-body">
+          <h3>Creamy Pasta</h3>
+          <p>Smooth, Cheesy, Irresistible.</p>
+          <span class="impress-card-plus">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </span>
+        </div>
+      </div>
+
+      <div class="impress-card reveal" style="transition-delay:.19s" onclick="openMenu()">
+        <div class="impress-card-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 8l9-5 9 5-9 5-9-5z"/><path d="M3 8v8l9 5 9-5V8"/>
+          </svg>
+        </div>
+        <div class="impress-card-media">
+          <!-- image: premium grilled sandwich -->
+        <div class="impress-card-image">
+            <img src="images/premium-sandwiches.jpg">
+        </div>
+        </div>
+        <div class="impress-card-body">
+          <h3>Premium Sandwiches</h3>
+          <p>Grilled, Fresh, Delicious.</p>
+          <span class="impress-card-plus">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="impress-explore-wrap reveal" style="transition-delay:.24s">
+      <svg class="impress-arrow-doodle" viewBox="0 0 60 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 6c14 2 24 14 30 26"/><path d="M26 30l8 2 0-8"/>
+      </svg>
+      <button class="btn-view-more ripple-host" onclick="addRipple(event,this); openMenu();">
+        Explore Full Menu
+        <span class="arrow-circle">
+          <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ═══ POPULAR PICKS ═══ -->
+  <section class="popular-section">
+    <div class="section-doodles" aria-hidden="true">
+      <svg class="bg-doodle" style="--top:69%;--left:91%;--size:26px;--rot:15deg;--op:0.2;--dur:7.9s;--delay:0.0s"><use href="#dd-heart"/></svg>
+      <svg class="bg-doodle" style="--top:84%;--left:29%;--size:28px;--rot:-20deg;--op:0.24;--dur:5.8s;--delay:1.1s"><use href="#dd-fries"/></svg>
+      <svg class="bg-doodle" style="--top:3%;--left:54%;--size:30px;--rot:14deg;--op:0.2;--dur:6.5s;--delay:2.1s"><use href="#dd-mug"/></svg>
+      <svg class="bg-doodle bg-doodle-w" style="--top:2%;--left:19%;--size:47px;--rot:5deg;--op:0.17;--dur:7.1s;--delay:3.9s"><use href="#dd-sushi"/></svg>
+      <svg class="bg-doodle" style="--top:42%;--left:90%;--size:38px;--rot:-1deg;--op:0.23;--dur:5.9s;--delay:0.9s"><use href="#dd-lemon"/></svg>
+      <svg class="bg-doodle" style="--top:6%;--left:92%;--size:31px;--rot:-5deg;--op:0.18;--dur:9.0s;--delay:0.3s"><use href="#dd-croissant"/></svg>
+      <svg class="bg-doodle" style="--top:10%;--left:83%;--size:27px;--rot:19deg;--op:0.26;--dur:8.8s;--delay:4.4s"><use href="#dd-sparkle"/></svg>
+      <svg class="bg-doodle" style="--top:82%;--left:90%;--size:41px;--rot:8deg;--op:0.15;--dur:7.1s;--delay:0.3s"><use href="#dd-donut"/></svg>
+    </div>
+    <div class="popular-head reveal">
+      <span class="section-badge">Our Menu</span>
+      <div class="popular-heading-row">
+        <h2>POPULAR <span>PICKS</span></h2>
+        <svg class="fork-doodle" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M8 4v10a3 3 0 006 0V4M11 14v14M22 4c-3 0-4 3-4 6s1 5 4 5M22 4v20"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="popular-tabs reveal" style="transition-delay:.06s" id="popularTabs">
+      <button class="popular-tab active" data-cat="burgers" onclick="setPopularTab('burgers',this)">Burgers</button>
+      <button class="popular-tab" data-cat="wings" onclick="setPopularTab('wings',this)">Wings</button>
+      <button class="popular-tab" data-cat="pasta" onclick="setPopularTab('pasta',this)">Pasta</button>
+      <button class="popular-tab" data-cat="sandwiches" onclick="setPopularTab('sandwiches',this)">Sandwiches</button>
+      <button class="popular-tab" data-cat="drinks" onclick="setPopularTab('drinks',this)">Drinks</button>
+      <button class="popular-tab" data-cat="fries" onclick="setPopularTab('fries',this)">Fries</button>
+    </div>
+
+    <div class="popular-carousel-wrap reveal" style="transition-delay:.1s">
+      <button class="popular-nav-btn popular-nav-prev" aria-label="Previous" onclick="scrollPopular(-1)">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <div class="popular-carousel" id="popularCarousel"></div>
+      <button class="popular-nav-btn popular-nav-next" aria-label="Next" onclick="scrollPopular(1)">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ═══ LOVED BY OUR PEOPLE — reviews ═══ -->
+  <section class="reviews-section">
+    <div class="section-doodles" aria-hidden="true">
+      <svg class="bg-doodle" style="--top:66%;--left:2%;--size:44px;--rot:8deg;--op:0.19;--dur:8.9s;--delay:0.7s"><use href="#dd-donut"/></svg>
+      <svg class="bg-doodle" style="--top:5%;--left:88%;--size:28px;--rot:16deg;--op:0.13;--dur:8.9s;--delay:1.8s"><use href="#dd-lemon"/></svg>
+      <svg class="bg-doodle" style="--top:5%;--left:82%;--size:45px;--rot:-17deg;--op:0.18;--dur:7.8s;--delay:2.4s"><use href="#dd-swirl"/></svg>
+      <svg class="bg-doodle" style="--top:44%;--left:94%;--size:33px;--rot:-6deg;--op:0.18;--dur:8.2s;--delay:1.3s"><use href="#dd-fries"/></svg>
+      <svg class="bg-doodle bg-doodle-w" style="--top:69%;--left:86%;--size:40px;--rot:17deg;--op:0.26;--dur:9.5s;--delay:0.3s"><use href="#dd-pretzel"/></svg>
+      <svg class="bg-doodle" style="--top:88%;--left:28%;--size:37px;--rot:-18deg;--op:0.24;--dur:7.0s;--delay:0.7s"><use href="#dd-sushi"/></svg>
+      <svg class="bg-doodle" style="--top:30%;--left:7%;--size:26px;--rot:20deg;--op:0.23;--dur:6.7s;--delay:3.0s"><use href="#dd-heart"/></svg>
+    </div>
+    <div class="reviews-head reveal">
+      <span class="section-badge">Reviews</span>
+      <div class="reviews-heading-row">
+        <h2>LOVED BY <span>OUR PEOPLE</span></h2>
+        <svg class="heart-doodle" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M16 27s-11-6.8-11-15A6 6 0 0116 8a6 6 0 0111 4c0 8.2-11 15-11 15z"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="reviews-track reveal" style="transition-delay:.06s" id="reviewsTrack">
+      <div class="review-card">
+        <span class="review-quote-mark">"</span>
+        <div class="review-stars">
+          <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+          <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+          <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+          <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+          <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+        </div>
+        <p class="review-text">Best wings in Rahim Yar Khan! Crispy every single time and the sauce is unreal.</p>
+        <div class="review-person">
+          <div class="review-avatar">S</div>
+          <div class="review-name">Saad Khan<span>Regular Guest</span></div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <span class="review-quote-mark">"</span>
+        <div class="review-stars">
+          <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+          <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+          <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+          <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+          <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+        </div>
+        <p class="review-text">Amazing ambience and delicious food. The neon lounge vibe makes every visit feel special.</p>
+        <div class="review-person">
+          <div class="review-avatar">H</div>
+          <div class="review-name">Hira Fatima<span>Food Blogger</span></div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <span class="review-quote-mark">"</span>
+        <div class="review-stars">
+          <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+          <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+          <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+          <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+          <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+        </div>
+        <p class="review-text">My go-to place every weekend. Consistent quality and the staff always remember our order.</p>
+        <div class="review-person">
+          <div class="review-avatar">H</div>
+          <div class="review-name">Hamza Ali<span>Weekend Regular</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reviews-nav reveal" style="transition-delay:.12s">
+      <button class="reviews-nav-btn" aria-label="Previous review" onclick="scrollReviews(-1)">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <div class="reviews-dots" id="reviewsDots">
+        <span class="reviews-dot active" onclick="goToReview(0)"></span>
+        <span class="reviews-dot" onclick="goToReview(1)"></span>
+        <span class="reviews-dot" onclick="goToReview(2)"></span>
+      </div>
+      <button class="reviews-nav-btn" aria-label="Next review" onclick="scrollReviews(1)">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ═══ CREATE YOUR PERFECT COMBO ═══ -->
+  <section class="combo-section">
+    <div class="section-doodles" aria-hidden="true">
+      <svg class="bg-doodle" style="--top:26%;--left:4%;--size:50px;--rot:-14deg;--op:0.21;--dur:6.5s;--delay:3.3s"><use href="#dd-heart"/></svg>
+      <svg class="bg-doodle" style="--top:4%;--left:18%;--size:26px;--rot:-15deg;--op:0.13;--dur:9.0s;--delay:4.1s"><use href="#dd-lemon"/></svg>
+      <svg class="bg-doodle" style="--top:9%;--left:94%;--size:30px;--rot:5deg;--op:0.14;--dur:6.7s;--delay:4.0s"><use href="#dd-drink"/></svg>
+      <svg class="bg-doodle" style="--top:10%;--left:5%;--size:32px;--rot:21deg;--op:0.15;--dur:5.9s;--delay:3.5s"><use href="#dd-swirl"/></svg>
+      <svg class="bg-doodle bg-doodle-w" style="--top:62%;--left:2%;--size:33px;--rot:-12deg;--op:0.26;--dur:8.7s;--delay:4.0s"><use href="#dd-cherry"/></svg>
+      <svg class="bg-doodle" style="--top:71%;--left:8%;--size:47px;--rot:-7deg;--op:0.16;--dur:8.6s;--delay:0.5s"><use href="#dd-sparkle"/></svg>
+      <svg class="bg-doodle bg-doodle-w" style="--top:5%;--left:85%;--size:40px;--rot:0deg;--op:0.16;--dur:8.7s;--delay:1.0s"><use href="#dd-croissant"/></svg>
+      <svg class="bg-doodle" style="--top:3%;--left:24%;--size:36px;--rot:-5deg;--op:0.24;--dur:9.4s;--delay:1.3s"><use href="#dd-fries"/></svg>
+    </div>
+    <div class="combo-head reveal">
+      <span class="section-badge">Build Your Meal</span>
+      <h2>CREATE YOUR <span>PERFECT COMBO</span></h2>
+    </div>
+
+    <div class="combo-layout">
+      <div class="combo-steps reveal" style="transition-delay:.04s">
+        <div class="combo-step">
+          <div class="combo-step-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 10h16M3 14h18a1 1 0 011 1c0 2.8-2.2 5-5 5H7c-2.8 0-5-2.2-5-5a1 1 0 011-1zM6 10a6 6 0 0112 0"/>
+            </svg>
+          </div>
+          <h4>Main Dish</h4>
+          <p>Choose your favorite</p>
+          <div class="combo-select-wrap">
+            <select class="combo-select" id="comboMain" onchange="updateCombo()"></select>
+          </div>
+        </div>
+
+        <span class="combo-plus-sep">+</span>
+
+        <div class="combo-step">
+          <div class="combo-step-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 3h3l1 3M9 3l-2 15a2 2 0 002 2h1M9 3h6M15 3h3l-2 15a2 2 0 01-2 2h-1M15 3l2 3M12 8v10"/>
+            </svg>
+          </div>
+          <h4>Add Fries</h4>
+          <p>Make it even better</p>
+          <div class="combo-select-wrap">
+            <select class="combo-select" id="comboFries" onchange="updateCombo()"></select>
+          </div>
+        </div>
+
+        <span class="combo-plus-sep">+</span>
+
+        <div class="combo-step">
+          <div class="combo-step-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 9h10l-1 10a2 2 0 01-2 2h-4a2 2 0 01-2-2L7 9z"/><path d="M6 9V7a2 2 0 012-2h8a2 2 0 012 2v2"/><path d="M9 5V3h6v2"/>
+            </svg>
+          </div>
+          <h4>Drink</h4>
+          <p>Complete your meal</p>
+          <div class="combo-select-wrap">
+            <select class="combo-select" id="comboDrink" onchange="updateCombo()"></select>
+          </div>
+        </div>
+      </div>
+
+      <div class="combo-receipt reveal" style="transition-delay:.1s">
+        <div class="combo-receipt-head">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2l1.5 3H2L6 2zM2 5h20l-1.5 12a2 2 0 01-2 1.8H5.5a2 2 0 01-2-1.8L2 5zM8 9v6M16 9v6"/>
+          </svg>
+          Your Meal
+        </div>
+        <div class="combo-receipt-lines" id="comboLines"></div>
+        <div class="combo-receipt-total">
+          <span>TOTAL</span>
+          <span id="comboTotal">Rs. 0</span>
+        </div>
+        <button class="combo-add-btn" id="comboAddBtn" onclick="addComboToCart(this)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2l1.5 3H2L6 2zM2 5h20l-1.5 12a2 2 0 01-2 1.8H5.5a2 2 0 01-2-1.8L2 5z"/>
+          </svg>
+          Add to Cart
+        </button>
+        <button class="combo-view-cart" onclick="pulseCart()">
+          View Cart
+          <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ WHY CAFE DE CHARIOT ═══ -->
+  <section class="why-section">
+    <div class="section-doodles" aria-hidden="true">
+      <svg class="bg-doodle" style="--top:80%;--left:92%;--size:43px;--rot:21deg;--op:0.22;--dur:8.5s;--delay:3.0s"><use href="#dd-donut"/></svg>
+      <svg class="bg-doodle" style="--top:87%;--left:51%;--size:45px;--rot:-2deg;--op:0.21;--dur:6.0s;--delay:4.1s"><use href="#dd-mug"/></svg>
+      <svg class="bg-doodle" style="--top:82%;--left:11%;--size:38px;--rot:22deg;--op:0.16;--dur:6.0s;--delay:1.9s"><use href="#dd-burger"/></svg>
+      <svg class="bg-doodle" style="--top:6%;--left:90%;--size:38px;--rot:13deg;--op:0.24;--dur:6.7s;--delay:0.9s"><use href="#dd-drink"/></svg>
+      <svg class="bg-doodle" style="--top:5%;--left:25%;--size:40px;--rot:6deg;--op:0.21;--dur:7.5s;--delay:3.6s"><use href="#dd-heart"/></svg>
+      <svg class="bg-doodle" style="--top:58%;--left:2%;--size:35px;--rot:10deg;--op:0.21;--dur:8.0s;--delay:0.4s"><use href="#dd-croissant"/></svg>
+      <svg class="bg-doodle" style="--top:13%;--left:4%;--size:33px;--rot:-10deg;--op:0.14;--dur:5.7s;--delay:4.4s"><use href="#dd-jar"/></svg>
+    </div>
+    <div class="why-head reveal">
+      <span class="section-badge">Why Choose Us</span>
+      <h2>WHY CAFE <span>DE CHARIOT?</span></h2>
+    </div>
+
+    <div class="why-grid">
+      <div class="why-card reveal" style="transition-delay:.04s">
+        <div class="why-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 20A7 7 0 019 6c2 1 3 3 3 6M11 20c5 0 9-4 9-9V4c-5 0-9 3-9 9"/>
+          </svg>
+        </div>
+        <h4>Fresh Ingredients</h4>
+        <p>Only the freshest for the best taste.</p>
+      </div>
+
+      <div class="why-card reveal" style="transition-delay:.09s">
+        <div class="why-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 19h12M7 19v-6.5a5 5 0 1110 0V19M9 8a3 3 0 116 0"/>
+          </svg>
+        </div>
+        <h4>Premium Taste</h4>
+        <p>Recipes crafted with perfection.</p>
+      </div>
+
+      <div class="why-card reveal" style="transition-delay:.14s">
+        <div class="why-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 18v-4a2 2 0 012-2h12a2 2 0 012 2v4M3 18h18M5 12V9a2 2 0 012-2h10a2 2 0 012 2v3M6 18v2M18 18v2"/>
+          </svg>
+        </div>
+        <h4>Cozy Atmosphere</h4>
+        <p>A place where you feel at home.</p>
+      </div>
+
+      <div class="why-card reveal" style="transition-delay:.19s">
+        <div class="why-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/>
+          </svg>
+        </div>
+        <h4>Fast Service</h4>
+        <p>Quick, easy and always on time.</p>
+      </div>
+    </div>
+  </section>
+
+    <!-- ═══ BOOK YOUR TABLE ═══ -->
   <section class="book-table">
+    <div class="section-doodles" aria-hidden="true">
+      <svg class="bg-doodle" style="--top:85%;--left:33%;--size:30px;--rot:7deg;--op:0.21;--dur:9.5s;--delay:2.7s"><use href="#dd-croissant"/></svg>
+      <svg class="bg-doodle" style="--top:5%;--left:18%;--size:39px;--rot:13deg;--op:0.18;--dur:6.1s;--delay:3.9s"><use href="#dd-swirl"/></svg>
+      <svg class="bg-doodle" style="--top:3%;--left:50%;--size:50px;--rot:11deg;--op:0.19;--dur:6.5s;--delay:2.0s"><use href="#dd-bacon"/></svg>
+      <svg class="bg-doodle" style="--top:44%;--left:94%;--size:36px;--rot:-2deg;--op:0.25;--dur:5.8s;--delay:0.7s"><use href="#dd-mug"/></svg>
+      <svg class="bg-doodle bg-doodle-w" style="--top:2%;--left:21%;--size:28px;--rot:4deg;--op:0.18;--dur:7.7s;--delay:1.9s"><use href="#dd-jar"/></svg>
+      <svg class="bg-doodle bg-doodle-twinkle" style="--top:62%;--left:6%;--size:50px;--rot:15deg;--op:0.25;--dur:5.6s;--delay:4.0s"><use href="#dd-star"/></svg>
+      <svg class="bg-doodle bg-doodle-twinkle" style="--top:19%;--left:92%;--size:50px;--rot:2deg;--op:0.24;--dur:9.3s;--delay:1.9s"><use href="#dd-sparkle"/></svg>
+      <svg class="bg-doodle" style="--top:29%;--left:6%;--size:33px;--rot:-5deg;--op:0.18;--dur:5.6s;--delay:1.5s"><use href="#dd-sushi"/></svg>
+    </div>
     <div class="reveal-left">
       <div class="book-heading-row">
         <svg class="fork-knife-doodle" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -2090,6 +3852,111 @@
       </div>
     </div>
   </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-col footer-brand">
+        <a href="#" class="footer-brand-logo">
+          <img src="logo.png" alt="Cafe De Chariot">
+        </a>
+        <p class="footer-tagline">Good food. Good mood. Good memories.</p>
+        <div class="footer-socials">
+          <button class="social-btn" aria-label="Instagram" data-tip="Instagram">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+              <rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/>
+              <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/>
+            </svg>
+          </button>
+          <button class="social-btn" aria-label="Facebook" data-tip="Facebook">
+            <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+            </svg>
+          </button>
+          <button class="social-btn" aria-label="TikTok" data-tip="TikTok">
+            <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 0 006.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.73a4.86 4.86 0 01-1.01-.04z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#" onclick="event.preventDefault(); openMenu();">Menu</a></li>
+          <li><a href="#">Gallery</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Menu</h4>
+        <ul>
+          <li><a href="#">Burgers</a></li>
+          <li><a href="#">Wings</a></li>
+          <li><a href="#">Pasta</a></li>
+          <li><a href="#">Sandwiches</a></li>
+          <li><a href="#">Drinks</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <div class="footer-contact-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4.5 4h4l2 5-2.5 1.5a11 11 0 005.5 5.5L15 13l5 2v4a2 2 0 01-2.2 2A17 17 0 012.5 6.2 2 2 0 014.5 4z"/>
+          </svg>
+          <span>0300 1452900<br/>0332 1452900</span>
+        </div>
+        <div class="footer-contact-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 21s7-6.6 7-12a7 7 0 10-14 0c0 5.4 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/>
+          </svg>
+          <span>Main Market, W Block,<br/>Gulshan Iqbal, RYK</span>
+        </div>
+        <div class="footer-contact-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 6h18v12H3z"/><path d="M3 6l9 7 9-7"/>
+          </svg>
+          <a href="mailto:cafedechariot@gmail.com">cafedechariot@gmail.com</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2025 Cafe De Chariot. All rights reserved 🧡</span>
+      <span class="footer-heart" aria-hidden="true">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21C6 16 2 12.4 2 8.4 2 5.4 4.4 3 7.4 3c1.8 0 3.5 1 4.6 2.6C13.1 4 14.8 3 16.6 3 19.6 3 22 5.4 22 8.4c0 4-4 7.6-10 12.6z"/></svg>
+      </span>
+    </div>
+  </footer>
+
+  <!-- ═══ QUICK VIEW — popular picks preview ═══ -->
+  <div class="pick-preview-backdrop" id="pickPreviewBackdrop" onclick="closePickPreview()"></div>
+  <div class="pick-preview-panel" id="pickPreviewPanel">
+    <span class="pick-preview-drag"></span>
+    <button class="pick-preview-close" onclick="closePickPreview()">✕</button>
+    <div class="pick-preview-media">
+      <div class="pick-preview-placeholder" id="pickPreviewPlaceholder">
+        <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span>Add your<br>image here</span>
+      </div>
+      <img id="pickPreviewImg" src="" alt="">
+    </div>
+    <div class="pick-preview-body">
+      <div class="pick-preview-category" id="pickPreviewCategory">Burgers</div>
+      <div class="pick-preview-name" id="pickPreviewName">Item Name</div>
+      <div class="pick-preview-price" id="pickPreviewPrice">Rs. 0</div>
+      <div class="pick-preview-desc" id="pickPreviewDesc">Description</div>
+      <button class="pick-preview-addbtn" id="pickPreviewAddBtn">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Add to Order
+      </button>
+    </div>
+  </div>
 
     <!-- ═══ MENU MODAL OVERLAY (loads separate HTML file) ═══ -->
   <div id="menuOverlay">
@@ -2356,6 +4223,251 @@ window.addEventListener('message', function(e) {
     closeMenu();
   }
 });
+
+    /* ══════════════════════════════════════════════════════════
+       POPULAR PICKS — data pulled from the full menu
+    ══════════════════════════════════════════════════════════ */
+    const popularPicksData = {
+      burgers: [
+        { name:"Majestic Zinger Burger", price:"Rs. 650", desc:"A double-stacked zinger fillet piled high with cheese, fresh lettuce and our signature mayo.", img:"images/majestic-zinger-burger.png" },
+        { name:"CDC Grill Burger", price:"Rs. 500", desc:"Char-grilled chicken patty layered with melted cheese and house sauces.", img:"images/cdc-grill-burger.png" },
+        { name:"Dual Steak With Cheese", price:"Rs. 650", desc:"Two juicy steak patties stacked with a generous blanket of melted cheese.", img:"images/dual-steak-with-cheese.png" },
+        { name:"Boston Burger", price:"Rs. 320", desc:"A classic crispy chicken burger with crunchy lettuce and tangy mayo.", img:"images/boston-burger.png" },
+      ],
+      wings: [
+        { name:"Fried Wings 10 Pcs", price:"Rs. 650", desc:"Ten golden, crunchy fried wings served hot with your choice of dip.", img:"images/fried-wings-10-pcs.png" },
+        { name:"Saucy Baked Wings 10 Pcs", price:"Rs. 700", desc:"Oven-baked wings tossed in our signature saucy glaze.", img:"images/saucy-baked-wings-10-pcs.png" },
+        { name:"Fried Wings 5 Pcs", price:"Rs. 350", desc:"Five crispy fried wings, perfect for a quick craving.", img:"images/fried-wings-5-pcs.png" },
+        { name:"Saucy Baked Wings 5 Pcs", price:"Rs. 390", desc:"Baked wings coated in a rich, tangy house sauce.", img:"images/saucy-baked-wings-5-pcs.png" },
+      ],
+      pasta: [
+        { name:"Garlic Butter Pasta", price:"Rs. 440 / Rs. 650", desc:"Creamy garlic butter pasta finished with fresh herbs.", img:"images/garlic-butter-pasta.png" },
+        { name:"Hot Flaming Pasta", price:"Rs. 440 / Rs. 650", desc:"Fiery spiced pasta with a bold kick of chilli.", img:"images/hot-flaming-pasta.png" },
+        { name:"Pizza Pasta", price:"Rs. 440 / Rs. 650", desc:"Classic pizza-style pasta in rich tomato sauce with mozzarella.", img:"images/pizza-pasta.png" },
+      ],
+      sandwiches: [
+        { name:"Chicken Club Sandwich", price:"Rs. 450", desc:"A hearty triple-layer sandwich loaded with grilled chicken and fresh veggies.", img:"images/chicken-club-sandwich.png" },
+        { name:"Grilled Chicken Sandwich", price:"Rs. 480", desc:"Smoky grilled chicken breast with melted cheese and house sauce.", img:"images/grilled-chicken-sandwich.png" },
+        { name:"Crunch Sandwich", price:"Rs. 400", desc:"Crispy chicken with a satisfying crunch in every bite.", img:"images/crunch-sandwich.png" },
+        { name:"Jalapeno Chicken Sandwich", price:"Rs. 350", desc:"Spiced chicken sandwich with a fiery jalapeno kick.", img:"images/jalapeno-chicken-sandwich.png" },
+      ],
+      drinks: [
+        { name:"Cold Coffee", price:"Rs. 390", desc:"Chilled, blended coffee finished smooth and refreshing.", img:"images/cold-coffee.png" },
+        { name:"Oreo Shake", price:"Rs. 400", desc:"Thick Oreo cookie blended shake, a house favourite.", img:"images/oreo-shake.png" },
+        { name:"Cappuccino", price:"Rs. 300", desc:"Rich espresso topped with silky steamed milk foam.", img:"images/cappuccino.png" },
+        { name:"Chocolate Ice-Cream Shake", price:"Rs. 370", desc:"Rich chocolate milkshake blended with real ice cream.", img:"images/chocolate-ice-cream-shake.png" },
+      ],
+      fries: [
+        { name:"Cheese Loaded Fries", price:"Rs. 450", desc:"Golden fries piled high with generous melted cheese.", img:"images/cheese-loaded-fries.png" },
+        { name:"Masala Fries", price:"Rs. 330", desc:"Crispy fries tossed in our house masala spice blend.", img:"images/masala-fries.png" },
+        { name:"Pizza Fries", price:"S: Rs. 400 / L: Rs. 580", desc:"Pizza-topped fries finished with cheese and sauce.", img:"images/pizza-fries.png" },
+        { name:"Plain Family Fries", price:"Rs. 400", desc:"A large portion of classic plain fries, perfect for sharing.", img:"images/plain-family-fries.png" },
+      ],
+    };
+
+    const catLabels = { burgers:"Burgers", wings:"Wings", pasta:"Pasta", sandwiches:"Sandwiches", drinks:"Drinks", fries:"Fries" };
+
+    function renderPopularPicks(cat) {
+      const wrap = document.getElementById('popularCarousel');
+      if (!wrap) return;
+      wrap.innerHTML = '';
+      (popularPicksData[cat] || []).forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'pick-card';
+        card.innerHTML = `
+          <div class="pick-card-media">
+            <img src="${item.img}" alt="${item.name}" style="opacity:0" onload="this.style.opacity=1" onerror="this.style.display='none'">
+            <button class="pick-card-fav" aria-label="Save item" onclick="event.stopPropagation(); this.classList.toggle('active');">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7.5-4.6-10-9.3C.5 8.2 2.4 4.8 6 4.4c2-.2 3.7.8 6 3 2.3-2.2 4-3.2 6-3 3.6.4 5.5 3.8 4 7.3C19.5 16.4 12 21 12 21z"/></svg>
+            </button>
+          </div>
+          <div class="pick-card-body">
+            <h4>${item.name}</h4>
+            <div class="pick-card-foot">
+              <span class="pick-card-price">${item.price}</span>
+              <button class="pick-add-btn" onclick="event.stopPropagation(); addPickToCart(this)">
+                <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                Add
+              </button>
+            </div>
+          </div>
+        `;
+        card.addEventListener('click', () => openPickPreview(item, cat));
+        wrap.appendChild(card);
+      });
+    }
+
+    function setPopularTab(cat, btn) {
+      document.querySelectorAll('.popular-tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      renderPopularPicks(cat);
+      document.getElementById('popularCarousel').scrollTo({ left: 0, behavior: 'smooth' });
+    }
+
+    function scrollPopular(dir) {
+      const wrap = document.getElementById('popularCarousel');
+      if (!wrap) return;
+      const card = wrap.querySelector('.pick-card');
+      const step = card ? card.getBoundingClientRect().width + 20 : 240;
+      wrap.scrollBy({ left: dir * step * 2, behavior: 'smooth' });
+    }
+
+    /* initial render */
+    renderPopularPicks('burgers');
+
+    /* ── Quick view preview (desktop card / mobile bottom sheet) ── */
+    function openPickPreview(item, cat) {
+      document.getElementById('pickPreviewCategory').textContent = catLabels[cat] || '';
+      document.getElementById('pickPreviewName').textContent = item.name;
+      document.getElementById('pickPreviewPrice').textContent = item.price;
+      document.getElementById('pickPreviewDesc').textContent = item.desc;
+
+      const img = document.getElementById('pickPreviewImg');
+      const ph = document.getElementById('pickPreviewPlaceholder');
+      img.onload = () => { img.style.opacity = '1'; ph.style.display = 'none'; };
+      img.onerror = () => { img.style.opacity = '0'; ph.style.display = 'flex'; };
+      img.style.opacity = '0';
+      ph.style.display = 'flex';
+      img.src = item.img;
+
+      const addBtn = document.getElementById('pickPreviewAddBtn');
+      addBtn.onclick = () => addPickToCart(addBtn);
+
+      document.getElementById('pickPreviewPanel').classList.add('open');
+      document.getElementById('pickPreviewBackdrop').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closePickPreview() {
+      document.getElementById('pickPreviewPanel').classList.remove('open');
+      document.getElementById('pickPreviewBackdrop').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closePickPreview();
+    });
+
+    /* ── Add to cart (visual only — bumps the nav cart badge) ── */
+    function addPickToCart(btn) {
+      const badge = document.querySelector('.cart-badge');
+      if (badge) {
+        badge.textContent = (parseInt(badge.textContent, 10) || 0) + 1;
+        badge.style.animation = 'none';
+        void badge.offsetWidth;
+        badge.style.animation = 'cartBump .4s ease';
+      }
+      if (btn && btn.classList.contains('pick-add-btn')) {
+        btn.classList.add('added');
+        const original = btn.innerHTML;
+        btn.innerHTML = '<svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Added';
+        setTimeout(() => { btn.innerHTML = original; btn.classList.remove('added'); }, 1200);
+      }
+    }
+
+    const cartBumpStyle = document.createElement('style');
+    cartBumpStyle.textContent = '@keyframes cartBump{0%{transform:scale(1)}40%{transform:scale(1.5)}100%{transform:scale(1)}}';
+    document.head.appendChild(cartBumpStyle);
+
+    /* ── Reviews carousel ── */
+    function scrollReviews(dir) {
+      const track = document.getElementById('reviewsTrack');
+      const card = track.querySelector('.review-card');
+      const step = card ? card.getBoundingClientRect().width + 22 : 300;
+      track.scrollBy({ left: dir * step, behavior: 'smooth' });
+    }
+    function goToReview(i) {
+      const track = document.getElementById('reviewsTrack');
+      const cards = track.querySelectorAll('.review-card');
+      if (cards[i]) cards[i].scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+    }
+    (function () {
+      const track = document.getElementById('reviewsTrack');
+      const dots = document.querySelectorAll('.reviews-dot');
+      if (!track || !dots.length) return;
+      const cards = track.querySelectorAll('.review-card');
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(en => {
+          if (en.isIntersecting) {
+            const idx = Array.from(cards).indexOf(en.target);
+            dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+          }
+        });
+      }, { root: track, threshold: .6 });
+      cards.forEach(c => obs.observe(c));
+    })();
+
+    /* ══════════════════════════════════════════════════════════
+       CREATE YOUR PERFECT COMBO — built from real menu items
+    ══════════════════════════════════════════════════════════ */
+    const comboMainOptions = [
+      { name: "Majestic Zinger Burger", price: 650 },
+      { name: "CDC Grill Burger", price: 500 },
+      { name: "Tower Burger", price: 500 },
+      { name: "Boston Burger", price: 320 },
+      { name: "Zinger Burger", price: 380 },
+    ];
+    const comboFriesOptions = [
+      { name: "Masala Fries", price: 330 },
+      { name: "Cheese Loaded Fries", price: 450 },
+      { name: "Plain Family Fries", price: 400 },
+      { name: "Pizza Fries", price: 400 },
+    ];
+    const comboDrinkOptions = [
+      { name: "Cold Coffee", price: 390 },
+      { name: "Oreo Shake", price: 400 },
+      { name: "Cappuccino", price: 300 },
+      { name: "Chocolate Ice-Cream Shake", price: 370 },
+    ];
+
+    function populateComboSelect(id, options) {
+      const el = document.getElementById(id);
+      el.innerHTML = options.map((o, i) => `<option value="${i}">${o.name}</option>`).join('');
+    }
+    populateComboSelect('comboMain', comboMainOptions);
+    populateComboSelect('comboFries', comboFriesOptions);
+    populateComboSelect('comboDrink', comboDrinkOptions);
+
+    function updateCombo() {
+      const main = comboMainOptions[document.getElementById('comboMain').value];
+      const fries = comboFriesOptions[document.getElementById('comboFries').value];
+      const drink = comboDrinkOptions[document.getElementById('comboDrink').value];
+      const items = [main, fries, drink];
+      const total = items.reduce((sum, i) => sum + i.price, 0);
+
+      const linesWrap = document.getElementById('comboLines');
+      linesWrap.innerHTML = items.map(i => `
+        <div class="combo-line">
+          <span class="combo-line-name">${i.name}<span class="combo-line-qty">x1</span></span>
+          <span class="combo-line-price">Rs. ${i.price}</span>
+        </div>
+      `).join('');
+      document.getElementById('comboTotal').textContent = `Rs. ${total}`;
+    }
+    updateCombo();
+
+    function addComboToCart(btn) {
+      const badge = document.querySelector('.cart-badge');
+      if (badge) {
+        badge.textContent = (parseInt(badge.textContent, 10) || 0) + 1;
+        badge.style.animation = 'none';
+        void badge.offsetWidth;
+        badge.style.animation = 'cartBump .4s ease';
+      }
+      const original = btn.innerHTML;
+      btn.classList.add('added');
+      btn.innerHTML = '<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Added to Cart';
+      setTimeout(() => { btn.innerHTML = original; btn.classList.remove('added'); }, 1400);
+    }
+
+    function pulseCart() {
+      const cartBtn = document.querySelector('.nav-icon-btn[aria-label="Cart"]');
+      if (!cartBtn) return;
+      cartBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      cartBtn.style.animation = 'none';
+      void cartBtn.offsetWidth;
+      cartBtn.style.animation = 'cartBump .5s ease';
+    }
   </script>
 </body>
 </html>

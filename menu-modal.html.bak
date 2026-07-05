@@ -448,7 +448,8 @@
     }
     .preview-img-wrap {
       width: 100%;
-      height: 160px;
+      aspect-ratio: 1214 / 864;
+      height: auto;
       background: var(--dark2);
       flex-shrink: 0;
       overflow: hidden;
@@ -490,6 +491,18 @@
       padding: 14px 16px;
       flex: 1;
       overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: var(--gold) #1a1a1a;
+    }
+    .preview-info::-webkit-scrollbar {
+      width: 4px;
+    }
+    .preview-info::-webkit-scrollbar-track {
+      background: #111;
+    }
+    .preview-info::-webkit-scrollbar-thumb {
+      background: var(--gold);
+      border-radius: 2px;
     }
     .preview-name {
       font-family: 'Bebas Neue', cursive;
@@ -577,13 +590,86 @@
     .mb-12 { margin-bottom: 12px; }
     .mt-10 { margin-top: 10px; }
 
+    /* ── Preview panel: mobile bottom-sheet controls (hidden/off by default, JS + media query only apply below 680px) ── */
+    .preview-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.55);
+      z-index: 40;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s ease;
+    }
+    .preview-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .preview-mobile-close {
+      display: none;
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255,255,255,.08);
+      color: rgba(255,255,255,.7);
+      font-size: 14px;
+      line-height: 1;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 2;
+    }
+    .preview-drag-handle {
+      display: none;
+      width: 36px;
+      height: 4px;
+      border-radius: 2px;
+      background: rgba(255,255,255,.25);
+      margin: 8px auto 0;
+      flex-shrink: 0;
+    }
+
     /* ── Responsive ── */
     @media (max-width: 680px) {
-      .preview-panel { display: none; }
       .two-col { grid-template-columns: 1fr; }
       .deals-grid { grid-template-columns: 1fr 1fr; }
       .menu-modal { border-radius: 0; border: none; }
       body { background: var(--dark); }
+
+      /* Turn the preview panel into a bottom sheet instead of hiding it,
+         so the image/description/Add to Order button stay reachable on mobile */
+      .preview-backdrop { display: block; }
+      .preview-drag-handle { display: block; }
+      .preview-mobile-close { display: flex; }
+
+      .preview-panel {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        max-height: 78vh;
+        border-left: none;
+        border-top: 1.5px solid var(--gold);
+        border-radius: 18px 18px 0 0;
+        box-shadow: 0 -10px 40px rgba(0,0,0,.6);
+        z-index: 50;
+        transform: translateY(100%);
+        transition: transform .32s cubic-bezier(.32,.72,0,1);
+      }
+      .preview-panel.open {
+        transform: translateY(0);
+      }
+      .preview-header {
+        position: relative;
+        padding: 6px 44px 10px 16px;
+      }
+      .preview-info { max-height: 32vh; }
+      .preview-add-btn { position: sticky; bottom: 0; }
     }
     @media (max-width: 480px) {
       .deals-grid { grid-template-columns: 1fr; }
@@ -605,7 +691,6 @@
           <div class="modal-logo-text">CAFE DE <span>CHARIOT</span></div>
         </div>
       </div>
-      <button class="modal-close" onclick="closeModalFromInside()" aria-label="Close">✕</button>
     </div>
 
     <!-- Tabs -->
@@ -676,7 +761,7 @@
                   <div class="deal-price">Rs.2950/-</div>
                   <div class="deal-items">1 Large Pizza<br>3 Zinger Burger<br>10 Fried Wings<br>1.5 Ltr Drink</div>
                 </div>
-                <div class="deal-card" onclick="showPreview('2 Zinger Burger, 2 Steak Burger, 10 Fried Wings, 1 Saucy Fries, 1.5 Ltr Drink','Rs.2600/-','','',this)">
+                <div class="deal-card" onclick="showPreview('2 Zinger Burger, 2 Steak Burger, 10 Fried Wings, 1 Saucy Fries, 1.5 Ltr Drink','Rs.2600/-','images/2-zinger-burger-2-steak-burger-10-fried-wings-1-saucy-fries-1-5-ltr-drink.png','',this)">
                   <div class="deal-price">Rs.2600/-</div>
                   <div class="deal-items">2 Zinger Burger<br>2 Steak Burger<br>10 Fried Wings<br>1 Saucy Fries<br>1.5 Ltr Drink</div>
                 </div>
@@ -692,10 +777,10 @@
                 <div class="pasta-tag large"><span class="tag-label">Large</span>Rs.650/-</div>
               </div>
               <ul class="menu-list mb-12">
-                <li onclick="showPreview('Pizza Pasta','Rs.440 / Rs.650','','Classic pizza-style pasta with rich tomato sauce and mozzarella.',this)">
+                <li onclick="showPreview('Pizza Pasta','Rs.440 / Rs.650','images/pizza-pasta.png','Classic pizza-style pasta with rich tomato sauce and mozzarella.',this)">
                   <span class="item-name">Pizza Pasta</span>
                   <span class="item-dot"></span>
-                  <span class="item-price">440 / 650</span>
+                  <span class="item-price">Rs.440 / Rs.650</span>
                 </li>
                 <li onclick="showPreview('Hot Flaming Pasta','Rs.440 / Rs.650','','Fiery spiced pasta with a kick of chilli.',this)">
                   <span class="item-name">Hot Flaming Pasta</span>
@@ -853,10 +938,13 @@
       </div><!-- /menu-pages -->
 
       <!-- ── Preview Panel ── -->
-      <div class="preview-panel">
+      <div class="preview-backdrop" id="previewBackdrop" onclick="closePreview()"></div>
+      <div class="preview-panel" id="previewPanel">
+        <div class="preview-drag-handle"></div>
         <div class="preview-header">
           <h3>Item Preview</h3>
           <p>Click any item to preview</p>
+          <button class="preview-mobile-close" id="previewMobileClose" onclick="closePreview()" aria-label="Close preview">✕</button>
         </div>
         <div class="preview-img-wrap">
           <div class="preview-placeholder" id="previewPlaceholder">
@@ -932,12 +1020,12 @@
       { name:"Jalapeno Grilled Burger", price:"490/-" },
       { name:"Chicken Steak Burger", price:"490/-" },
       { name:"Espresso Grill Burger", price:"490/-" },
-      { name:"CDC Grill Burger", price:"500/-" },
-      { name:"Dual Steak With Cheese", price:"650/-" },
+      { name: "CDC Grill Burger", price: "500/-", img: "images/cdc-grill-burger.png" },
+      { name: "Dual Steak With Cheese", price: "650/-", img: "images/dual-steak-with-cheese.png" },
     ];
     const burgers = [
       { name:"Zesty Zinger Burger", price:"450/-" },
-      { name:"Majestic Zinger Burger", price:"650/-" },
+      { name: "Majestic Zinger Burger", price: "650/-", img: "images/majestic-zinger-burger.png" },
       { name:"Zinger Burger", price:"380/-" },
       { name:"Chicken Chapli Burger", price:"430/-" },
       { name:"Chicken Patty Burger", price:"320/-" },
@@ -1066,6 +1154,22 @@
       }
 
       addBtn.classList.add('visible');
+
+      /* On mobile the preview panel is a bottom sheet — slide it into view */
+      const panel = document.getElementById('previewPanel');
+      const backdrop = document.getElementById('previewBackdrop');
+      if (window.innerWidth <= 680) {
+        panel.classList.add('open');
+        backdrop.classList.add('open');
+      }
+    }
+
+    function closePreview() {
+      const panel = document.getElementById('previewPanel');
+      const backdrop = document.getElementById('previewBackdrop');
+      panel.classList.remove('open');
+      backdrop.classList.remove('open');
+      if (activeCard) { activeCard.style.outline = ''; activeCard = null; }
     }
 
     /* ── Close Modal (communicate with parent) ── */
