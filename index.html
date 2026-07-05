@@ -2836,6 +2836,344 @@
       .pick-preview-name { font-size: 24px; }
       .pick-preview-addbtn { align-self: stretch; justify-content: center; position: sticky; bottom: 0; }
     }
+    /* ══ CART MODAL ══ */
+    .cart-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .75);
+      backdrop-filter: blur(10px);
+      z-index: 9400;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s ease;
+    }
+    .cart-modal-backdrop.open { opacity: 1; pointer-events: auto; }
+
+    .cart-modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: min(980px, 94vw);
+      max-height: 88vh;
+      background: var(--dark);
+      border: 1.5px solid var(--gold);
+      border-radius: 22px;
+      box-shadow: 0 0 70px rgba(245, 168, 0, .18), 0 40px 90px rgba(0, 0, 0, .75);
+      z-index: 9500;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, -50%) scale(.95);
+      transition: opacity .35s var(--ease), transform .35s var(--ease);
+    }
+    .cart-modal.open {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    .cart-modal-doodles {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .cart-modal-header {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 26px;
+      border-bottom: 1px solid rgba(245, 168, 0, .15);
+      flex-shrink: 0;
+      background: rgba(10, 10, 10, .4);
+    }
+    .cart-modal-header h3 {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 26px;
+      letter-spacing: 1.5px;
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .cart-modal-header h3 span { color: var(--gold); }
+    .cart-modal-close {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(245, 168, 0, .4);
+      background: rgba(0, 0, 0, .5);
+      color: white;
+      font-size: 17px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all .25s ease;
+    }
+    .cart-modal-close:hover { background: var(--gold); color: #000; border-color: var(--gold); transform: rotate(90deg); }
+
+    .cart-modal-body {
+      position: relative;
+      z-index: 1;
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1.35fr 1fr;
+      overflow: hidden;
+    }
+    .cart-items-col {
+      padding: 22px 26px;
+      overflow-y: auto;
+      border-right: 1px solid rgba(245, 168, 0, .1);
+    }
+    .cart-item {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, .06);
+    }
+    .cart-item:last-child { border-bottom: none; }
+    .cart-item-img {
+      width: 62px;
+      height: 62px;
+      border-radius: 12px;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: #1a1a1a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(245, 168, 0, .15);
+      color: rgba(245, 168, 0, .4);
+    }
+    .cart-item-img img { width: 100%; height: 100%; object-fit: cover; }
+    .cart-item-info { flex: 1; min-width: 0; }
+    .cart-item-info h4 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 3px;
+      line-height: 1.3;
+    }
+    .cart-item-note {
+      font-size: 10px;
+      color: rgba(255, 255, 255, .4);
+      margin-bottom: 4px;
+      line-height: 1.4;
+    }
+    .cart-item-price {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 15px;
+      color: var(--gold);
+      letter-spacing: .5px;
+    }
+    .cart-item-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    .cart-qty {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid rgba(245, 168, 0, .2);
+      border-radius: 20px;
+      padding: 4px 6px;
+    }
+    .cart-qty button {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(245, 168, 0, .15);
+      color: var(--gold);
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background .2s;
+      line-height: 1;
+    }
+    .cart-qty button:hover { background: var(--gold); color: #000; }
+    .cart-qty span { font-size: 12.5px; font-weight: 600; min-width: 14px; text-align: center; }
+    .cart-remove-btn {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, .15);
+      background: transparent;
+      color: rgba(255, 255, 255, .4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all .2s;
+      flex-shrink: 0;
+    }
+    .cart-remove-btn:hover { border-color: #e2455e; color: #e2455e; background: rgba(226, 69, 94, .08); }
+
+    .cart-empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      height: 100%;
+      min-height: 280px;
+      padding: 40px 20px;
+      gap: 14px;
+    }
+    .cart-empty-icon {
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(245, 168, 0, .3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+    }
+    .cart-empty p {
+      font-size: 12.5px;
+      color: rgba(255, 255, 255, .45);
+      max-width: 240px;
+      line-height: 1.6;
+    }
+    .cart-empty-btn {
+      background: var(--gold);
+      color: #000;
+      border: none;
+      border-radius: 30px;
+      padding: 11px 24px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background .2s, transform .2s;
+    }
+    .cart-empty-btn:hover { background: var(--gold-dark); transform: translateY(-2px); }
+
+    .cart-summary-col {
+      padding: 22px 26px;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      background: rgba(255, 255, 255, .015);
+    }
+    .cart-summary-col h4 {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 16px;
+      letter-spacing: 1.5px;
+      color: var(--gold);
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+    .cart-summary-lines {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 14px;
+      padding-bottom: 14px;
+      border-bottom: 1px dashed rgba(245, 168, 0, .25);
+      max-height: 120px;
+      overflow-y: auto;
+    }
+    .cart-summary-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 11.5px;
+      color: rgba(255, 255, 255, .6);
+    }
+    .cart-summary-line span:first-child { min-width: 0; }
+    .cart-summary-line span:last-child {
+      color: rgba(255, 255, 255, .85);
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+    .cart-summary-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .cart-summary-total span:first-child {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, .6);
+    }
+    .cart-summary-total span:last-child {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 28px;
+      color: var(--gold);
+    }
+    .cart-form { display: flex; flex-direction: column; gap: 14px; margin-bottom: 16px; }
+    .cart-place-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      width: 100%;
+      background: #25D366;
+      color: #0a0a0a;
+      border: none;
+      border-radius: 30px;
+      padding: 15px 20px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12.5px;
+      font-weight: 700;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      margin-top: auto;
+      transition: background .25s, transform .2s, box-shadow .25s;
+    }
+    .cart-place-btn:hover { background: #1ebc59; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37, 211, 102, .3); }
+    .cart-place-btn:disabled { opacity: .4; cursor: not-allowed; transform: none; box-shadow: none; }
+    .cart-place-note {
+      font-size: 9.5px;
+      color: rgba(255, 255, 255, .35);
+      text-align: center;
+      margin-top: 10px;
+      line-height: 1.5;
+    }
+    @media(max-width: 900px) {
+      .cart-modal-body { grid-template-columns: 1fr; overflow-y: auto; }
+      .cart-items-col { border-right: none; border-bottom: 1px solid rgba(245, 168, 0, .1); max-height: 42vh; }
+      .cart-summary-col { overflow-y: visible; }
+    }
+    @media(max-width: 680px) {
+      .cart-modal {
+        top: auto;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        max-height: 94vh;
+        border-radius: 20px 20px 0 0;
+        border-left: none;
+        border-right: none;
+        border-bottom: none;
+        transform: translate(0, 100%);
+      }
+      .cart-modal.open { transform: translate(0, 0); }
+      .cart-modal-header h3 { font-size: 21px; }
+      .cart-items-col, .cart-summary-col { padding: 18px 20px; }
+    }
+
     /* ══ AMBIENT BACKGROUND DOODLES ══ */
     .section-doodles {
       position: absolute;
@@ -3118,12 +3456,12 @@
         </svg>
       </button>
       <div class="nav-divider"></div>
-      <button class="nav-icon-btn" aria-label="Cart" data-tip="View Cart">
+      <button class="nav-icon-btn" aria-label="Cart" data-tip="View Cart" onclick="openCart()">
         <svg width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
           <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
           <line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
         </svg>
-        <span class="cart-badge">3</span>
+        <span class="cart-badge">0</span>
       </button>
       <button class="btn-order-nav ripple-host" onclick="addRipple(event,this)">
         Order Now
@@ -3966,6 +4304,65 @@
     </div>
   </div>
 
+  <!-- ═══ CART MODAL ═══ -->
+  <div class="cart-modal-backdrop" id="cartBackdrop" onclick="closeCart()"></div>
+  <div class="cart-modal" id="cartModal" role="dialog" aria-modal="true" aria-label="Your cart">
+    <div class="cart-modal-doodles" aria-hidden="true">
+      <svg class="bg-doodle" style="--top:8%;--left:4%;--size:34px;--rot:-10deg;--op:0.16;--dur:7.4s;--delay:0.4s"><use href="#dd-burger"/></svg>
+      <svg class="bg-doodle bg-doodle-w" style="--top:80%;--left:88%;--size:30px;--rot:12deg;--op:0.15;--dur:8.1s;--delay:1.2s"><use href="#dd-fries"/></svg>
+      <svg class="bg-doodle" style="--top:68%;--left:5%;--size:28px;--rot:-16deg;--op:0.14;--dur:6.8s;--delay:2.0s"><use href="#dd-drink"/></svg>
+      <svg class="bg-doodle" style="--top:12%;--left:92%;--size:26px;--rot:18deg;--op:0.18;--dur:9.0s;--delay:0.8s"><use href="#dd-sparkle"/></svg>
+      <svg class="bg-doodle bg-doodle-w" style="--top:45%;--left:95%;--size:32px;--rot:-6deg;--op:0.13;--dur:7.6s;--delay:3.1s"><use href="#dd-heart"/></svg>
+      <svg class="bg-doodle" style="--top:88%;--left:40%;--size:30px;--rot:8deg;--op:0.15;--dur:8.4s;--delay:1.6s"><use href="#dd-mug"/></svg>
+      <svg class="bg-doodle" style="--top:30%;--left:2%;--size:24px;--rot:14deg;--op:0.13;--dur:7.9s;--delay:2.6s"><use href="#dd-cherry"/></svg>
+    </div>
+
+    <div class="cart-modal-header">
+      <h3>Your <span>Cart</span></h3>
+      <button class="cart-modal-close" onclick="closeCart()" aria-label="Close cart">✕</button>
+    </div>
+
+    <div class="cart-modal-body">
+      <div class="cart-items-col" id="cartItemsCol"><!-- rendered by JS --></div>
+
+      <div class="cart-summary-col">
+        <h4>Order Summary</h4>
+        <div class="cart-summary-lines" id="cartSummaryLines"></div>
+        <div class="cart-summary-total">
+          <span>Total</span>
+          <span id="cartTotalAmount">Rs. 0</span>
+        </div>
+
+        <form class="cart-form" id="cartForm" onsubmit="event.preventDefault(); placeOrder();">
+          <div class="book-field">
+            <label for="cartName">Your Name</label>
+            <div class="book-input-wrap">
+              <input type="text" id="cartName" placeholder="e.g. Ahmed Raza" autocomplete="name" required />
+            </div>
+          </div>
+          <div class="book-field">
+            <label for="cartPhone">Contact Number</label>
+            <div class="book-input-wrap">
+              <input type="tel" id="cartPhone" placeholder="03xx-xxxxxxx" autocomplete="tel" required />
+            </div>
+          </div>
+          <div class="book-field">
+            <label for="cartAddress">Delivery Address <span style="opacity:.5;text-transform:none;letter-spacing:0;">(optional)</span></label>
+            <div class="book-input-wrap">
+              <input type="text" id="cartAddress" placeholder="Street, area, landmark" autocomplete="street-address" />
+            </div>
+          </div>
+        </form>
+
+        <button class="cart-place-btn" id="cartPlaceBtn" onclick="placeOrder()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.4-.1-.6.1-.2.3-.7.9-.8 1-.2.2-.3.2-.5.1-.3-.1-1.2-.4-2.2-1.4-.8-.7-1.4-1.6-1.6-1.9-.2-.3 0-.4.1-.6l.4-.5c.1-.2.2-.3.2-.5.1-.2 0-.4 0-.5-.1-.1-.6-1.5-.8-2-.2-.5-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.1-.3-.2-.5-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.6 1.4 5.1L2 22l5-1.3c1.4.8 3.1 1.2 4.9 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .8.8-2.9-.2-.3C4.1 15 3.5 13.5 3.5 12c0-4.7 3.8-8.5 8.5-8.5s8.5 3.8 8.5 8.5-3.8 8.5-8.5 8.5z"/></svg>
+          Place Order on WhatsApp
+        </button>
+        <p class="cart-place-note">You'll be redirected to WhatsApp with your order summary ready to send straight to Cafe De Chariot.</p>
+      </div>
+    </div>
+  </div>
+
   <script>
     /* ── cursor glow ── */
     const glow = document.getElementById('cursorGlow');
@@ -4217,10 +4614,12 @@ document.addEventListener('keydown', function(e) {
   }
 });
 
-// Optional: Receive messages from iframe (if needed)
+// Receive messages from iframe (menu-modal.html)
 window.addEventListener('message', function(e) {
   if (e.data === 'closeMenu') {
     closeMenu();
+  } else if (e.data && e.data.type === 'addToCart' && e.data.item) {
+    addToCart(e.data.item);
   }
 });
 
@@ -4285,7 +4684,7 @@ window.addEventListener('message', function(e) {
             <h4>${item.name}</h4>
             <div class="pick-card-foot">
               <span class="pick-card-price">${item.price}</span>
-              <button class="pick-add-btn" onclick="event.stopPropagation(); addPickToCart(this)">
+              <button class="pick-add-btn">
                 <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                 Add
               </button>
@@ -4293,6 +4692,11 @@ window.addEventListener('message', function(e) {
           </div>
         `;
         card.addEventListener('click', () => openPickPreview(item, cat));
+        const addBtn = card.querySelector('.pick-add-btn');
+        addBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          addPickToCart(item, addBtn);
+        });
         wrap.appendChild(card);
       });
     }
@@ -4331,7 +4735,7 @@ window.addEventListener('message', function(e) {
       img.src = item.img;
 
       const addBtn = document.getElementById('pickPreviewAddBtn');
-      addBtn.onclick = () => addPickToCart(addBtn);
+      addBtn.onclick = () => addPickToCart(item, addBtn);
 
       document.getElementById('pickPreviewPanel').classList.add('open');
       document.getElementById('pickPreviewBackdrop').classList.add('open');
@@ -4348,19 +4752,21 @@ window.addEventListener('message', function(e) {
       if (e.key === 'Escape') closePickPreview();
     });
 
-    /* ── Add to cart (visual only — bumps the nav cart badge) ── */
-    function addPickToCart(btn) {
-      const badge = document.querySelector('.cart-badge');
-      if (badge) {
-        badge.textContent = (parseInt(badge.textContent, 10) || 0) + 1;
-        badge.style.animation = 'none';
-        void badge.offsetWidth;
-        badge.style.animation = 'cartBump .4s ease';
-      }
-      if (btn && btn.classList.contains('pick-add-btn')) {
+    /* ── Add to cart — pushes the real item into the cart store ── */
+    function addPickToCart(item, btn) {
+      addToCart({
+        name: item.name,
+        price: parsePrice(item.price),
+        img: item.img || '',
+        note: item.price
+      });
+      if (btn) {
+        const wasIconOnly = btn.classList.contains('pick-add-btn');
         btn.classList.add('added');
         const original = btn.innerHTML;
-        btn.innerHTML = '<svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Added';
+        btn.innerHTML = wasIconOnly
+          ? '<svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Added'
+          : '<svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Added to Order';
         setTimeout(() => { btn.innerHTML = original; btn.classList.remove('added'); }, 1200);
       }
     }
@@ -4428,12 +4834,15 @@ window.addEventListener('message', function(e) {
     populateComboSelect('comboFries', comboFriesOptions);
     populateComboSelect('comboDrink', comboDrinkOptions);
 
+    let currentCombo = null;
+
     function updateCombo() {
       const main = comboMainOptions[document.getElementById('comboMain').value];
       const fries = comboFriesOptions[document.getElementById('comboFries').value];
       const drink = comboDrinkOptions[document.getElementById('comboDrink').value];
       const items = [main, fries, drink];
       const total = items.reduce((sum, i) => sum + i.price, 0);
+      currentCombo = { main, fries, drink, total };
 
       const linesWrap = document.getElementById('comboLines');
       linesWrap.innerHTML = items.map(i => `
@@ -4447,12 +4856,13 @@ window.addEventListener('message', function(e) {
     updateCombo();
 
     function addComboToCart(btn) {
-      const badge = document.querySelector('.cart-badge');
-      if (badge) {
-        badge.textContent = (parseInt(badge.textContent, 10) || 0) + 1;
-        badge.style.animation = 'none';
-        void badge.offsetWidth;
-        badge.style.animation = 'cartBump .4s ease';
+      if (currentCombo) {
+        addToCart({
+          name: 'Custom Combo',
+          price: currentCombo.total,
+          img: '',
+          note: `${currentCombo.main.name} + ${currentCombo.fries.name} + ${currentCombo.drink.name}`
+        });
       }
       const original = btn.innerHTML;
       btn.classList.add('added');
@@ -4468,6 +4878,198 @@ window.addEventListener('message', function(e) {
       void cartBtn.offsetWidth;
       cartBtn.style.animation = 'cartBump .5s ease';
     }
+
+    /* ══════════════════════════════════════════════════════════
+       CART SYSTEM — single source of truth, persisted to
+       localStorage, driven from the popular picks, the combo
+       builder, and the full menu modal (via postMessage)
+    ══════════════════════════════════════════════════════════ */
+    const WHATSAPP_NUMBER = '923053740437';
+
+    /* pull the first meaningful rupee figure out of a messy price string
+       e.g. "Rs. 440 / Rs. 650" -> 440, "7\": Rs.450 | 10\": Rs.860" -> 450 */
+    function parsePrice(str) {
+      if (str === undefined || str === null) return 0;
+      if (typeof str === 'number') return str;
+      let cleaned = String(str).replace(/\d+"/g, ''); // drop size labels like 7" 10" 13"
+      let match = cleaned.match(/Rs\.?\s*([\d,]+)/i);
+      if (!match) match = cleaned.match(/([\d,]+)/);
+      if (!match) return 0;
+      return parseInt(match[1].replace(/,/g, ''), 10) || 0;
+    }
+
+    function escapeHtml(str) {
+      return String(str).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    }
+
+    const CART_PLACEHOLDER_ICON = '<svg width="24" height="24" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4v10a3 3 0 006 0V4M11 14v14M22 4c-3 0-4 3-4 6s1 5 4 5M22 4v20"/></svg>';
+
+    let cart = [];
+    try { cart = JSON.parse(localStorage.getItem('cdc_cart') || '[]'); } catch (e) { cart = []; }
+    if (!Array.isArray(cart)) cart = [];
+
+    function saveCart() {
+      try { localStorage.setItem('cdc_cart', JSON.stringify(cart)); } catch (e) { /* storage unavailable */ }
+    }
+
+    function updateCartBadge() {
+      const badge = document.querySelector('.cart-badge');
+      if (!badge) return;
+      const count = cart.reduce((sum, i) => sum + i.qty, 0);
+      badge.textContent = count;
+      badge.style.display = count > 0 ? 'flex' : 'none';
+    }
+
+    function addToCart(item) {
+      const price = parsePrice(item.price);
+      const note = item.note || '';
+      const existing = cart.find(c => c.name === item.name && (c.note || '') === note);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({ name: item.name, price, img: item.img || '', note, qty: 1 });
+      }
+      saveCart();
+      renderCart();
+
+      const badge = document.querySelector('.cart-badge');
+      if (badge) {
+        badge.style.animation = 'none';
+        void badge.offsetWidth;
+        badge.style.animation = 'cartBump .4s ease';
+      }
+    }
+
+    function changeQty(i, delta) {
+      if (!cart[i]) return;
+      cart[i].qty += delta;
+      if (cart[i].qty <= 0) cart.splice(i, 1);
+      saveCart();
+      renderCart();
+    }
+
+    function removeCartItem(i) {
+      cart.splice(i, 1);
+      saveCart();
+      renderCart();
+    }
+
+    function renderCart() {
+      const col = document.getElementById('cartItemsCol');
+      const linesWrap = document.getElementById('cartSummaryLines');
+      const totalEl = document.getElementById('cartTotalAmount');
+      const placeBtn = document.getElementById('cartPlaceBtn');
+      if (!col) return;
+
+      if (!cart.length) {
+        col.innerHTML = `
+          <div class="cart-empty">
+            <div class="cart-empty-icon">${CART_PLACEHOLDER_ICON}</div>
+            <p>Your cart is empty. Explore our menu and add your favourite bites!</p>
+            <button class="cart-empty-btn" onclick="closeCart(); openMenu();">Browse Menu</button>
+          </div>`;
+        linesWrap.innerHTML = `<div class="cart-summary-line"><span>No items yet</span><span></span></div>`;
+        totalEl.textContent = 'Rs. 0';
+        placeBtn.disabled = true;
+        updateCartBadge();
+        return;
+      }
+
+      placeBtn.disabled = false;
+
+      col.innerHTML = cart.map((item, i) => `
+        <div class="cart-item">
+          <div class="cart-item-img">${
+            item.img
+              ? `<img src="${item.img}" alt="${escapeHtml(item.name)}" onerror="this.parentElement.innerHTML='${CART_PLACEHOLDER_ICON.replace(/'/g, "\\'")}'">`
+              : CART_PLACEHOLDER_ICON
+          }</div>
+          <div class="cart-item-info">
+            <h4>${escapeHtml(item.name)}</h4>
+            ${item.note ? `<div class="cart-item-note">${escapeHtml(item.note)}</div>` : ''}
+            <div class="cart-item-price">Rs. ${item.price}</div>
+          </div>
+          <div class="cart-item-actions">
+            <div class="cart-qty">
+              <button onclick="changeQty(${i},-1)" aria-label="Decrease quantity">−</button>
+              <span>${item.qty}</span>
+              <button onclick="changeQty(${i},1)" aria-label="Increase quantity">+</button>
+            </div>
+            <button class="cart-remove-btn" onclick="removeCartItem(${i})" aria-label="Remove item">
+              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+        </div>
+      `).join('');
+
+      const total = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
+      linesWrap.innerHTML = cart.map(i => `
+        <div class="cart-summary-line">
+          <span>${escapeHtml(i.name)} <span style="opacity:.5">x${i.qty}</span></span>
+          <span>Rs. ${i.price * i.qty}</span>
+        </div>
+      `).join('');
+      totalEl.textContent = `Rs. ${total}`;
+      updateCartBadge();
+    }
+
+    function openCart() {
+      renderCart();
+      document.getElementById('cartModal').classList.add('open');
+      document.getElementById('cartBackdrop').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeCart() {
+      document.getElementById('cartModal').classList.remove('open');
+      document.getElementById('cartBackdrop').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeCart();
+    });
+
+    function placeOrder() {
+      if (!cart.length) return;
+      const nameInput = document.getElementById('cartName');
+      const phoneInput = document.getElementById('cartPhone');
+      const addressInput = document.getElementById('cartAddress');
+      const name = nameInput.value.trim();
+      const phone = phoneInput.value.trim();
+      const address = addressInput.value.trim();
+
+      nameInput.style.borderColor = '';
+      phoneInput.style.borderColor = '';
+      if (!name || !phone) {
+        if (!name) nameInput.style.borderColor = '#e2455e';
+        if (!phone) phoneInput.style.borderColor = '#e2455e';
+        return;
+      }
+
+      const total = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
+      const lines = cart.map(i => `• ${i.name}${i.note ? ' (' + i.note + ')' : ''} x${i.qty} — Rs. ${i.price * i.qty}`).join('\n');
+      const text = `*New Order — Cafe De Chariot*\n\n${lines}\n\n*Total: Rs. ${total}*\n\n*Name:* ${name}\n*Contact:* ${phone}${address ? `\n*Address:* ${address}` : ''}`;
+      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+      window.open(url, '_blank');
+
+      const placeBtn = document.getElementById('cartPlaceBtn');
+      const original = placeBtn.innerHTML;
+      placeBtn.innerHTML = '<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Order Sent — Check WhatsApp';
+      setTimeout(() => {
+        cart = [];
+        saveCart();
+        renderCart();
+        closeCart();
+        placeBtn.innerHTML = original;
+        nameInput.value = '';
+        phoneInput.value = '';
+        addressInput.value = '';
+      }, 1500);
+    }
+
+    /* initial paint on load */
+    updateCartBadge();
   </script>
 </body>
 </html>

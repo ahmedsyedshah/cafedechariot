@@ -559,6 +559,9 @@
       background: var(--gold-dark); 
       transform: translateY(-1px); 
     }
+    .preview-add-btn.added {
+      background: #2ecc71;
+    }
 
     /* ── Footer info ── */
     .modal-footer {
@@ -1128,10 +1131,26 @@
 
     /* ── Preview ── */
     let activeCard = null;
+    let currentPreviewItem = null;
+
+    /* pull the first meaningful rupee figure out of a messy price string
+       e.g. "Rs. 440 / Rs. 650" -> 440, "7\": Rs.450 | 10\": Rs.860" -> 450 */
+    function parsePrice(str) {
+      if (str === undefined || str === null) return 0;
+      if (typeof str === 'number') return str;
+      let cleaned = String(str).replace(/\d+"/g, ''); // drop size labels like 7" 10" 13"
+      let match = cleaned.match(/Rs\.?\s*([\d,]+)/i);
+      if (!match) match = cleaned.match(/([\d,]+)/);
+      if (!match) return 0;
+      return parseInt(match[1].replace(/,/g, ''), 10) || 0;
+    }
+
     function showPreview(name, price, imgSrc, desc, el) {
       if (activeCard) activeCard.style.outline = '';
       activeCard = el;
       if (el) el.style.outline = '2px solid var(--gold)';
+
+      currentPreviewItem = { name, price, imgSrc, desc };
 
       const info = document.getElementById('previewInfo');
       const img = document.getElementById('previewImg');
@@ -1162,6 +1181,30 @@
         panel.classList.add('open');
         backdrop.classList.add('open');
       }
+    }
+
+    /* ── Add to Order: sends the currently previewed item up to the
+       parent page's cart via postMessage (the iframe has no cart of its own) ── */
+    const previewAddBtnEl = document.getElementById('previewAddBtn');
+    if (previewAddBtnEl) {
+      previewAddBtnEl.addEventListener('click', function () {
+        if (!currentPreviewItem) return;
+        if (window.parent) {
+          window.parent.postMessage({
+            type: 'addToCart',
+            item: {
+              name: currentPreviewItem.name,
+              price: parsePrice(currentPreviewItem.price),
+              img: currentPreviewItem.imgSrc || '',
+              note: currentPreviewItem.price
+            }
+          }, '*');
+        }
+        this.classList.add('added');
+        const original = this.innerHTML;
+        this.innerHTML = '<svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Added to Order';
+        setTimeout(() => { this.innerHTML = original; this.classList.remove('added'); }, 1300);
+      });
     }
 
     function closePreview() {
