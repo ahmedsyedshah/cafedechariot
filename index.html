@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cafe De Chariot · full hero</title>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Dancing+Script:wght@600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11.2.4/swiper-bundle.min.css" />
   <style>
     *,
     *::before,
@@ -1796,11 +1797,37 @@
       margin-top: 6px;
     }
     .impress-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 22px;
-      max-width: 1180px;
-      margin: 54px auto 46px;
+      position: relative;
+      max-width: 320px;
+      margin: 54px auto 20px;
+    }
+    .impress-swiper {
+      width: 100%;
+      overflow: visible;
+      padding: 10px 4px 40px;
+    }
+    .impress-swiper .swiper-slide {
+      height: auto;
+    }
+    .impress-swiper-pagination {
+      position: static;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .impress-swiper-pagination .swiper-pagination-bullet {
+      width: 7px;
+      height: 7px;
+      background: rgba(245, 168, 0, .3);
+      opacity: 1;
+      border-radius: 4px;
+      transition: width .3s var(--ease), background .3s var(--ease);
+    }
+    .impress-swiper-pagination .swiper-pagination-bullet-active {
+      width: 22px;
+      background: var(--gold);
     }
     .impress-card {
       background: #131313;
@@ -1913,11 +1940,11 @@
       transform: rotate(-4deg);
     }
     @media(max-width: 1100px) {
-      .impress-grid { grid-template-columns: repeat(2, 1fr); max-width: 620px; }
+      .impress-grid { max-width: 300px; }
     }
     @media(max-width: 640px) {
       .impress-section { padding: 60px 20px 70px; }
-      .impress-grid { grid-template-columns: 1fr 1fr; gap: 14px; margin: 42px auto 36px; }
+      .impress-grid { max-width: 78vw; margin: 42px auto 12px; }
       .impress-card-body { padding: 18px 12px 26px; }
       .impress-card-body h3 { font-size: 11.5px; }
     }
@@ -3819,90 +3846,95 @@
       <p class="impress-sub">Crafted with passion</p>
     </div>
 
-    <div class="impress-grid">
-      <div class="impress-card reveal" style="transition-delay:.04s" onclick="openMenu()">
-        <div class="impress-card-icon">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 10h16M3 14h18a1 1 0 011 1c0 2.8-2.2 5-5 5H7c-2.8 0-5-2.2-5-5a1 1 0 011-1zM6 10a6 6 0 0112 0"/>
-          </svg>
-        </div>
-        <div class="impress-card-media">
-          <!-- image: loaded burger, close-up -->
-        <div class="impress-card-image">
-            <img src="images/loaded-burgers.webp" alt="Loaded Burgers">
-        </div>
-        </div>
-        <div class="impress-card-body">
-          <h3>Loaded Burgers</h3>
-          <p>Rich, Juicy, Loaded.</p>
-          <span class="impress-card-plus">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </span>
-        </div>
-      </div>
+    <div class="impress-grid reveal">
+      <div class="swiper impress-swiper" id="impressSwiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide impress-card">
+            <div class="impress-card-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 10h16M3 14h18a1 1 0 011 1c0 2.8-2.2 5-5 5H7c-2.8 0-5-2.2-5-5a1 1 0 011-1zM6 10a6 6 0 0112 0"/>
+              </svg>
+            </div>
+            <div class="impress-card-media">
+              <!-- image: loaded burger, close-up -->
+            <div class="impress-card-image">
+                <img src="images/loaded-burgers.webp" alt="Loaded Burgers">
+            </div>
+            </div>
+            <div class="impress-card-body">
+              <h3>Loaded Burgers</h3>
+              <p>Rich, Juicy, Loaded.</p>
+              <span class="impress-card-plus">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              </span>
+            </div>
+          </div>
 
-      <div class="impress-card reveal" style="transition-delay:.09s" onclick="openMenu()">
-        <div class="impress-card-icon">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2c-1.5 3-4 4-4 7.5A4 4 0 0012 14a4 4 0 004-4.5C16 6 13.5 5 12 2z"/><path d="M12 14v8"/>
-          </svg>
-        </div>
-        <div class="impress-card-media">
-          <!-- image: saucy chicken wings -->
-        <div class="impress-card-image">
-            <img src="images/signature-wings.webp" alt="Loaded Burgers">
-        </div>
-        </div>
-        <div class="impress-card-body">
-          <h3>Signature Wings</h3>
-          <p>Crispy, Spicy, Perfect.</p>
-          <span class="impress-card-plus">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </span>
-        </div>
-      </div>
+          <div class="swiper-slide impress-card">
+            <div class="impress-card-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2c-1.5 3-4 4-4 7.5A4 4 0 0012 14a4 4 0 004-4.5C16 6 13.5 5 12 2z"/><path d="M12 14v8"/>
+              </svg>
+            </div>
+            <div class="impress-card-media">
+              <!-- image: saucy chicken wings -->
+            <div class="impress-card-image">
+                <img src="images/signature-wings.webp" alt="Loaded Burgers">
+            </div>
+            </div>
+            <div class="impress-card-body">
+              <h3>Signature Wings</h3>
+              <p>Crispy, Spicy, Perfect.</p>
+              <span class="impress-card-plus">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              </span>
+            </div>
+          </div>
 
-      <div class="impress-card reveal" style="transition-delay:.14s" onclick="openMenu()">
-        <div class="impress-card-icon">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 12a8 8 0 0116 0"/><path d="M3 12h18l-1.5 7a2 2 0 01-2 1.5H6.5a2 2 0 01-2-1.5L3 12z"/>
-          </svg>
-        </div>
-        <div class="impress-card-media">
-          <!-- image: creamy pasta bowl -->
-        <div class="impress-card-image">
-            <img src="images/creamy-pasta.webp" alt="Loaded Burgers">
-        </div>
-        </div>
-        <div class="impress-card-body">
-          <h3>Creamy Pasta</h3>
-          <p>Smooth, Cheesy, Irresistible.</p>
-          <span class="impress-card-plus">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </span>
-        </div>
-      </div>
+          <div class="swiper-slide impress-card">
+            <div class="impress-card-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 12a8 8 0 0116 0"/><path d="M3 12h18l-1.5 7a2 2 0 01-2 1.5H6.5a2 2 0 01-2-1.5L3 12z"/>
+              </svg>
+            </div>
+            <div class="impress-card-media">
+              <!-- image: creamy pasta bowl -->
+            <div class="impress-card-image">
+                <img src="images/creamy-pasta.webp" alt="Loaded Burgers">
+            </div>
+            </div>
+            <div class="impress-card-body">
+              <h3>Creamy Pasta</h3>
+              <p>Smooth, Cheesy, Irresistible.</p>
+              <span class="impress-card-plus">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              </span>
+            </div>
+          </div>
 
-      <div class="impress-card reveal" style="transition-delay:.19s" onclick="openMenu()">
-        <div class="impress-card-icon">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 8l9-5 9 5-9 5-9-5z"/><path d="M3 8v8l9 5 9-5V8"/>
-          </svg>
-        </div>
-        <div class="impress-card-media">
-          <!-- image: premium grilled sandwich -->
-        <div class="impress-card-image">
-            <img src="images/premium-sandwiches.webp">
-        </div>
-        </div>
-        <div class="impress-card-body">
-          <h3>Premium Sandwiches</h3>
-          <p>Grilled, Fresh, Delicious.</p>
-          <span class="impress-card-plus">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </span>
+          <div class="swiper-slide impress-card">
+            <div class="impress-card-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 8l9-5 9 5-9 5-9-5z"/><path d="M3 8v8l9 5 9-5V8"/>
+              </svg>
+            </div>
+            <div class="impress-card-media">
+              <!-- image: premium grilled sandwich -->
+            <div class="impress-card-image">
+                <img src="images/premium-sandwiches.webp">
+            </div>
+            </div>
+            <div class="impress-card-body">
+              <h3>Premium Sandwiches</h3>
+              <p>Grilled, Fresh, Delicious.</p>
+              <span class="impress-card-plus">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              </span>
+            </div>
+          </div>
         </div>
       </div>
+      <div class="impress-swiper-pagination"></div>
     </div>
 
     <div class="impress-explore-wrap reveal" style="transition-delay:.24s">
@@ -4517,6 +4549,7 @@
     </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11.2.4/swiper-bundle.min.js"></script>
   <script>
     /* ── cursor glow ── */
     const glow = document.getElementById('cursorGlow');
@@ -4594,6 +4627,35 @@
       });
     }, { threshold: .12 });
     document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el => obs.observe(el));
+
+    /* ── "Made To Impress" swiping cards ── */
+    if (document.getElementById('impressSwiper') && window.Swiper) {
+      const impressSwiper = new Swiper('#impressSwiper', {
+        effect: 'cards',
+        grabCursor: true,
+        slideToClickedSlide: true,
+        cardsEffect: {
+          perSlideRotate: 6,
+          perSlideOffset: 10,
+          slideShadows: true
+        },
+        loop: false,
+        initialSlide: 0,
+        autoHeight: true,
+        pagination: {
+          el: '.impress-swiper-pagination',
+          clickable: true
+        }
+      });
+      /* open the menu only when tapping the card that's already on top,
+         so a tap on a stacked card brings it forward first */
+      document.querySelectorAll('#impressSwiper .impress-card').forEach(card => {
+        card.style.cursor = 'pointer';
+        card.addEventListener('click', () => {
+          if (card.classList.contains('swiper-slide-active')) openMenu();
+        });
+      });
+    }
 
     /* ── scroll doodle thread: hand-drawn line that snakes from the
        top-middle of "our place" (section 2), down through it and
